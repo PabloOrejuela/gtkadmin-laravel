@@ -1,0 +1,9 @@
+VERSION: Beta 0.9.6
+FECHA: 2018-07-16
+
+1. Cambiada y optimizada la forma de calcular los puntos
+2. BIR se calcula hasta el 5to nivel
+3. Incluye Reporte de Historial de Bonos Binarios
+4. Corregido el cálculo del bono binario, restando la base de las dos piernas y acumulando el saldo
+
+

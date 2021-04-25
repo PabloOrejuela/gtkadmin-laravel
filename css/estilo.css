@@ -1,0 +1,389 @@
+::selection {
+	background-color: #E13300;
+	color: white;
+}
+
+::-moz-selection {
+	background-color: #E13300;
+	color: white;
+}
+
+body {
+	background-color: #fff;
+	margin: 0px;
+	font: 13px/20px normal Courier New, serif;
+	color: #4F5155;
+}
+
+a {
+	color: #003399;
+	background-color: transparent;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #444;
+	background-color: transparent;
+	font-weight: normal;
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+
+h1 {
+	color: #444;
+	background-color: transparent;
+	border-bottom: 1px solid #D0D0D0;
+	font-size: 19px;
+	font-weight: normal;
+	margin: 0 0 14px 0;
+	padding: 2px 2px 2px 2px;
+}
+
+h4 a {
+	color: #E13300;
+}
+
+.form-control {
+	margin-top: 4px;
+	width: auto;
+}
+
+#img_logo{
+	margin-top: 5px;
+}
+
+#flotante {
+	position: fixed;
+	top: 300px;
+	right: 0px;
+	overflow: hidden;
+	height: auto;
+	text-align: center;
+	font-size: 0.8em;
+	color: #000000;
+	background-color: #F5FFF7;
+	padding: 1em 0 0 0;
+	opacity: 0.7;
+	-moz-opacity: 0.7;
+	filter: alpha(opacity=0.7);
+}
+
+#form_cabecera {
+	margin-bottom: 20px;
+}
+
+#table_resumen {
+	border: 1px solid #999696;
+	font-size: 12px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding: 1px;
+	width: auto;
+}
+
+#grid_form {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+code {
+	font-family: Consolas, Monaco, Courier New, Courier, monospace;
+	font-size: 12px;
+	background-color: #f9f9f9;
+	border: 1px solid #D0D0D0;
+	color: #002166;
+	display: block;
+	margin: 14px 0 14px 0;
+	padding: 12px 10px 12px 10px;
+}
+
+#body {
+	margin: 0 15px 0 15px;
+}
+
+p.footer {
+	text-align: right;
+	font-size: 11px;
+	border-top: 1px solid #D0D0D0;
+	line-height: 32px;
+	padding: 0 10px 0 10px;
+	margin: 20px 0 0 0;
+}
+
+#container {
+	margin: 10px 10px 50px 10px;
+	width: 80%;
+}
+
+#botonera {
+	background-color: #c7d1d0b7;
+	-moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 3px 3px #003399 (158, 39, 39, 0.4);
+}
+
+button {
+	margin-top: 5px;
+}
+
+#header {
+	background-image: url("../images/textura.jpg");
+	height: 80px;
+	width: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+#table_resp {
+	font-size: 0.7em;
+}
+
+#logo {
+	float: left;
+	padding-left: 30px;
+	width: 50%;
+}
+
+#version {
+	font-size: 1em;
+	float: right;
+	text-align: right;
+	padding-top: 35px;
+	padding-right: 20px;
+	width: 50%;
+}
+
+#user {
+	font-size: 1em;
+	float: right;
+	font-weight: bold;
+	text-align: right;
+	padding-top: 0px;
+	padding-right: 20px;
+	width: 50%;
+}
+
+label {
+	margin-bottom: 0px;
+	margin-top: 10px;
+}
+
+input[type="text"] {
+	font-size: 1.2em;
+	height: 30px;
+	padding: 5px;
+	width: 80%;
+	margin-top: 0px;
+}
+
+input[type="password"] {
+	font-size: 1.2em;
+	padding: 5px;
+	width: 70%;
+}
+
+input[type="submit"] {
+	font-size: 1em;
+	padding: 8px;
+	margin-top: 5px;
+}
+
+#input_form_ingreso {
+	text-transform: uppercase;
+}
+
+#form_login {
+	border: 1px dotted #CCC5BE;
+	height: 300px;;
+	margin-top: 60px;
+	padding: 15px;
+	width: 50%;
+}
+
+@media only screen and (min-width: 321px) {
+	#img_logo {
+		width: 300px;
+		padding: 10px;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	#img_logo {
+		width: 100px;
+		padding: 10px;
+	}
+}
+
+#img_estado_socio {
+	width: 20px;
+	margin-right: 3px;
+}
+
+#btn_salir {
+	background-color: #BDDABC;
+	border: none;
+	color: #2137C3;
+	height: 44px;
+	text-align: left;
+	font-size: 1em;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 0px;
+	padding-bottom: 1px;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#btn_salir:hover {
+	background-color: #FEFDFD;
+	border: none;
+	color: #23527c;
+	height: 45px;
+	text-align: left;
+	font-size: 1em;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 0px;
+	padding-bottom: 1px;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#td_izq {
+	float: left;
+	margin-right: 10px;
+}
+
+#td_der {
+	margin-left: 10px;
+}
+
+#fecha {
+	width: 30%;
+}
+
+select {
+	height: 30px;
+	padding: 3px;
+}
+
+.div_afiliado {
+	width: auto;
+	height: 60px;
+	width: auto;
+	padding: 0px;
+	margin: 0px auto;
+	text-align: center;
+}
+
+.table_middle {
+	width: 960px;
+	margin: auto;
+}
+
+.table_middle td html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.pop-div {
+	font-size: 13px;
+	margin-top: 100px;
+}
+
+#pop-title {
+	display: none;
+	color: blue;
+	font-size: 15px;
+}
+
+#pop-content {
+	display: none;
+	color: red;
+	font-size: 10px;
+}
+
+#table_datos {
+	border: 1px solid #D9D5E1;
+	font-size: 0.9em;
+	padding: 5px;
+	vertical-align: middle;
+	margin-left: 10px;
+	width: 60%;
+}
+
+#td_left {
+	font-weight: bold;
+	width: 5%;
+	margin-right: 0px;
+}
+
+#td_right {
+	margin-left: 0px;
+	text-align: left;
+	vertical-align: middle;
+	width: 25%;
+}
+
+#td_resumen {
+	border: 1px solid #B9C4CC;
+	vertical-align: middle;
+	text-align: left;
+	padding: 1px;
+	width: auto;
+	text-align: left;
+}
+
+#td_resumen_financiero {
+	border: 1px solid #B9C4CC;
+	vertical-align: middle;
+	text-align: left;
+	padding: 5px;
+	width: auto;
+	text-align: right;
+}
+
+#td_resumen_cabecera_left {
+	border: 1px solid #B9C4CC;
+	vertical-align: middle;
+	text-align: left;
+	font-weight: bold;
+	padding: 5px;
+	width: 35%;
+}
+
+#td_resumen_cabecera_right {
+	border: 1px solid #B9C4CC;
+	vertical-align: middle;
+	padding: 5px;
+	text-align: left;
+}
+
+#ciudad {
+	text-transform: uppercase;
+}
+
+#nombres_socio, #input_info {
+	text-transform: uppercase;
+}
+
+#apellidos_socio {
+	text-transform: uppercase;
+}
+
+#direccion_socio {
+	text-transform: uppercase;
+}
+
+#wrap {
+	margin: 0 auto 0 auto;
+	width: 600px;
+}
+
+
+#wrap_1 {
+	margin: 0 auto 0 auto;
+	width: 800px;
+}
