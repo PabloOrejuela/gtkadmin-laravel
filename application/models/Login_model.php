@@ -38,13 +38,8 @@ class Login_model extends CI_Model{
         $this->db->where('clave_socio', md5($data['password']));
         $q = $this->db->get('socios');
         if($q->num_rows() == 1){
-            foreach ($q->result() as $v) {
-                $socio['id'] = $v->idsocio;
-                $socio['nombres'] = $v->nombres;
-                $socio['apellidos'] = $v->apellidos;
-                $socio['cedula'] = $v->cedula;
-                $socio['id_rol'] = $v->idrol;
-                $socio['email'] = $v->email;
+            foreach ($q->result_array() as $v) {
+                $socio = $v;
             }
             return $socio;
         }
@@ -77,6 +72,35 @@ class Login_model extends CI_Model{
         $this->db->update('socios');  
     }
 
+    /**
+     * Verifica si el pin es válido
+     *
+     * @param Type int
+     * @return type boolean
+     * @throws conditon
+     * @author Pablo Orejuela
+     * @date 19-07-2021
+     **/
+    function _verifica_pin($pin, $idsocio){
+        $actual = strtotime(date('Y-m-d H:i:s'));
+        
+        $this->db->select('expira, pin')->where('idsocio', $idsocio);
+        $q = $this->db->get('socios');
+        if ($q->num_rows() == 1) {
+            foreach ($q->result() as $key => $value) {
+                $expira = $value->expira;
+                
+                if ($expira && ($expira-$actual >= 0 && $pin === $value->pin)) {
+                    $estado = 1;
+                }else{
+                    $estado = 0;
+                }
+            }
+        }
+        return $estado;
+
+    }
+
     function _get_rol($data){
         $this->db->where('user', $data['nombre']);
         $this->db->where('password', md5($data['password']));
@@ -92,6 +116,8 @@ class Login_model extends CI_Model{
             return 0;
         }
     }
+
+    
 
     function _get_permiso($data, $seccion){
         $this->db->where('user', $data['nombre']);

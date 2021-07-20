@@ -14,7 +14,7 @@ class Acl_model extends CI_Model{
 
     function _verificaRol($socio,$section){
         $this->db->select('*');
-        $this->db->where('idrol', $socio['id_rol']);
+        $this->db->where('idrol', $socio['idrol']);
         $q = $this->db->get('rol');
         if($q->result() > 0){
             foreach ($q->result() as $value) {

@@ -342,7 +342,7 @@ class Administracion_model extends CI_Model {
                 $socio['clave_socio'] = $r->clave_socio;
 				$socio['logged_socio'] = $r->logged_socio;
                 $socio['rango'] = $r->rango;
-                $socio['codigo_socio_binario'] = $r->codigo_socio_binario;
+                $socio['codigo_socio_binario'] = $r->codigo_socio_binario; 
             }
             return $socio;
         }else{
@@ -487,7 +487,7 @@ class Administracion_model extends CI_Model {
         foreach ($q->result() as $r) {
             $socio = $r->patrocinador;
         }
-        echo $socio;
+        
             return $socio;
         }else{
         	return 0;

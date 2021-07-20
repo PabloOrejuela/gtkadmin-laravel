@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Inicio extends CI_Controller {
 
     private $pin = 0;
+    private $seccion = 'inicio';
     
     public function __construct() {
         parent::__construct();
@@ -132,22 +133,23 @@ class Inicio extends CI_Controller {
 		//echo $this->email->print_debugger();
     }
 
-    function form_confirmacion(){
+    function form_confirmacion($socio){
         
         $is_logged = $this->session->userdata('is_logged_in');
+        $data['socio'] = $socio;
         $data['title']='Ingreso al sistema';
         $data['main_content']='inicio/confirmacion_view';
         $this->load->view('includes/template_login', $data);
     }
 
     function validate_credentials(){
-        $seccion = 'inicio';
+
         $data['user'] = $this->input->post('user');
         $data['password'] = $this->input->post('password');
         $socio = $this->login_model->_validate_credentials($data);
         
-        if ($socio !=null) {
-            if($socio['id_rol'] == 1){
+        if (isset($socio) && $socio != null) {
+            if($socio['idrol'] == 1){
 
                 $datos_usuario = $this->administracion_model->_get_data_usuario_ci($data);
 
@@ -156,7 +158,7 @@ class Inicio extends CI_Controller {
                 $data['expira'] = strtotime('+5 minute', strtotime($inicia));
                 $this->pin = random_int(100000, 999999);
                 $data['pin'] = $this->pin;
-                $data['id'] = $socio['id'];
+                $data['id'] = $socio['idsocio'];
 
                 //guardo en db pin y expiración
 
@@ -164,19 +166,19 @@ class Inicio extends CI_Controller {
 
                 //Enviar email y mostrar form de confirmación
                 $this->email_pin($data, $datos_usuario);
-                $this->form_confirmacion();
+                $this->form_confirmacion($socio);
                 
 
             }else{
-                $permiso = $this->acl_model->_verificaRol($socio,$seccion);
+                $permiso = $this->acl_model->_verificaRol($socio, $this->seccion);
                 $nombre = $this->acl_model->_get_name($data['user']);
                 if ($permiso == 1){
                     $data = array(
                         'user' => $data['user'],
                         'nombre' => $nombre ,
                         'password' => $data['password'],
-                        'rol' => $socio['id_rol'],
-                        'id' => $socio['id'],
+                        'rol' => $socio['idrol'],
+                        'id' => $socio['idsocio'],
                         'is_logged_in' => true
                     );
                     $this->session->set_userdata($data);
@@ -193,7 +195,7 @@ class Inicio extends CI_Controller {
     }
 
     function miembros(){
-        $rol =$this->session->userdata('rol');
+        $rol = $this->session->userdata('rol');
         $data['per'] = $this->acl_model->_extraePermisos($rol);
         $is_logged = $this->session->userdata('is_logged_in');
 
@@ -210,7 +212,7 @@ class Inicio extends CI_Controller {
                 $data['idpaquete'] = 3;
                 
                 if ($r == 0) {
-                    /*Hagp la recompra con paquete de 1000*/
+                    ## Hago la recompra con paquete de 1000
                     $this->compras_model->_graba_compra_binaria($data);
                     $this->compras_model->_confirmar_compra_binaria_principal($data['idcodigo_socio_binario']);
                 }else{
@@ -227,6 +229,54 @@ class Inicio extends CI_Controller {
             $this->index();
         }
     }
+
+
+    /**
+     * Recibe el pin de usuario admin, lo comprueba y accede
+     *
+     * @param Type int
+     * @return type void
+     * @author conditon
+     * @date 19-07-2021
+     **/
+
+    public function miembro_admin(){
+        $rol =$this->session->userdata('rol');
+        $data['per'] = $this->acl_model->_extraePermisos($rol);
+        $is_logged = $this->session->userdata('is_logged_in');
+
+        //Recibo el pin
+        $pin = $this->input->post('pin');
+        $socio = $this->input->post('socio');
+        
+        //Verifico que no haya caducado
+        $estado = $this->login_model->_verifica_pin($pin, $socio['idsocio']);
+        
+
+        if (!$pin && $estado === 0) {
+            $this->index();
+        }else{
+            $permiso = $this->acl_model->_verificaRol($socio, $this->seccion);
+            $nombre = $socio['nombres'].' '.$socio['apellidos'];
+            if ($permiso == 1){
+                $data = array(
+                    'user' => $socio['cedula'],
+                    'nombre' => $nombre ,
+                    'password' => $socio['clave_socio'],
+                    'rol' => $socio['idrol'],
+                    'id' => $socio['idsocio'],
+                    'is_logged_in' => true
+                );
+                $this->session->set_userdata($data);
+                $this->miembros();
+            }
+            else{
+                $this->index();
+            }
+        }
+        
+    }
+
 
     function actividad_usuario(){
         $rol =$this->session->userdata('rol');
