@@ -525,6 +525,7 @@ class Administracion_model extends CI_Model {
             foreach ($q->result() as $r) {
                 $codigos[] = $r;
             }
+            
             return $codigos;
         }else{
             return $codigos;

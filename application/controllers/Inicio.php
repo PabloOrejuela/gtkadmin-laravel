@@ -152,7 +152,7 @@ class Inicio extends CI_Controller {
             if($socio['idrol'] == 1){
 
                 $datos_usuario = $this->administracion_model->_get_data_usuario_ci($data);
-
+                
                 //Creo pin de confirmación
                 $inicia = date('Y-m-d H:i:s');
                 $data['expira'] = strtotime('+5 minute', strtotime($inicia));

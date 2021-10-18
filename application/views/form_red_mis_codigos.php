@@ -1,6 +1,6 @@
 <style type="text/css">
 	table.table-responsive{
-		max-width: 800px;
+		max-width: 100%;
 		margin: 0 auto;
 	}
 	h3{

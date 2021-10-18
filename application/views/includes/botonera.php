@@ -18,13 +18,13 @@
                         echo '<li><a href="http://www.gtk-ecuador.com">Ir a la web</a></li>';
                 echo '</ul></li>';
             }
-            if ($per['socios'] == 1) {
+            /*if ($per['socios'] == 1) {
               echo '<li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compras<span class="caret"></span></a>
                   <ul class="dropdown-menu">';
                       echo '<li><a href="'.base_url().'compras/recompras">Comprar producto</a></li>';
               echo '</ul></li>';
-          }
+            }*/
             if ($per['reportes'] == 1 && $per['administracion'] == 1) {
                 echo '<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
