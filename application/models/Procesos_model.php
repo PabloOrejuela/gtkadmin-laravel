@@ -64,6 +64,7 @@ class Procesos_model extends CI_Model {
 		$this->db->join('socios', 'socios.idsocio = codigo_socio_binario.idsocio');
 		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
 		$this->db->join('provincias', 'provincias.idprovincia = ciudad.id_provincia');
+		$this->db->where('codigo_socio_binario.idsocio !=', '8');
 		$this->db->where('codigo_socio_binario !=', 'UNDEFINED');
 		$this->db->order_by('apellidos', 'asc');
 		$this->db->order_by('idcodigo_socio_binario', 'asc');
@@ -120,6 +121,7 @@ class Procesos_model extends CI_Model {
             //$this->db->select('codigo_socio_binario.idcodigo_socio_binario,codigo_socio_binario,fecha_inscripcion,nombres,apellidos,cedula');
             $this->db->join('socios', 'socios.idsocio = codigo_socio_binario.idsocio');
             $this->db->where('codigo_socio_binario !=', 'UNDEFINED');
+			$this->db->where('codigo_socio_binario.idsocio !=', '8');
             //$this->db->where('idcodigo_socio_binario', 1);
             $this->db->order_by('apellidos', 'asc');
             //$this->db->order_by('idcodigo_socio_binario', 'asc');

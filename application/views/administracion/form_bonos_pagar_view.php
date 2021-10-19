@@ -3,7 +3,7 @@
         <form action="compras/ver_lista_compras" method="post" accept-charset="utf-8" id="form_cabecera">
         <div class="col-md-12" id="grid_form">
             <h3>Bonos por pagar</h3>
-            <h1>Subiendo archivos... contacte al administrador</h1>
+            <h1></h1>
             <div class="col-md-1">
                 <label for="fecha_evento">Provincia:</label>
             </div>

@@ -258,7 +258,7 @@ class Reportes extends CI_Controller {
         $data['per'] = $this->acl_model->_extraePermisos($rol);
         $is_logged = $this->session->userdata('is_logged_in');
         if (isset($is_logged) == true || isset($is_logged) == 1) {
-
+            
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
             $data['main_content']='reportes/frm_getLista_view';
@@ -396,7 +396,7 @@ class Reportes extends CI_Controller {
         $is_logged = $this->session->userdata('is_logged_in');
         if (isset($is_logged) == true || isset($is_logged) == 1) {
 
-            $data['idcodigo_socio_binario'] = $this->input->post('idcodigo_socio_binario');
+            //$data['idcodigo_socio_binario'] = $this->input->post('idcodigo_socio_binario');
             $data['ordenar'] = $this->input->post('ordenar');
 
             $data['provincias'] = $this->procesos_model->_get_provincias();

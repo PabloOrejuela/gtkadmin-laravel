@@ -4,7 +4,7 @@
 
 	<?php
 		
-		if ($ordenar && $provincias) {echo 7;
+		if ($ordenar && $provincias) {
 			foreach ($provincias as $key => $value) {
 				$n = 1;
 				$socios_provincia = $this->procesos_model->_get_socios_provincia($value->idprovincia);

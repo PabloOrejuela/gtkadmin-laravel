@@ -11,6 +11,7 @@ class Compras extends CI_Controller {
         $data['result'] = 0;
         if (isset($is_logged) == true || isset($is_logged) == 1) {
         	$data['provincias'] = $this->administracion_model->_get_provincias();
+            
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
             $data['main_content']='form_compras_confirmar_view';

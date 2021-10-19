@@ -182,7 +182,7 @@ class Inicio extends CI_Controller {
                         'is_logged_in' => true
                     );
                     $this->session->set_userdata($data);
-                    $this->miembros();
+                    $this->miembros($this->session->userdata('user'));
                 }
                 else{
                     $this->index();
@@ -219,7 +219,7 @@ class Inicio extends CI_Controller {
                     $this->compras_model->_confirmar_compra_binaria_principal($data['idcodigo_socio_binario']);
                 }
             }
-
+            
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
             $data['main_content']='inicio/inicio_view';

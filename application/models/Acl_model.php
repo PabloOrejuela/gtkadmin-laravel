@@ -2,6 +2,7 @@
 
 class Acl_model extends CI_Model{
 
+
     function _graba($data, $rol){
         $this->db->where('idrol', $rol);
         $this->db->set('administracion', $data[0]);
@@ -133,18 +134,6 @@ class Acl_model extends CI_Model{
          * Es llamada por el controlador archivos en edita_profe
          */
         $this->db->order_by('nombre_usuario');
-        $usuarios = $this->db->get('USUARIO');
-        return $usuarios;
-    }
-
-    function _get_profes(){
-        /*
-         * Extrae los usuarios registrados en la base de datos
-         * Es llamada por el controlador archivos en edita_profe
-         */
-        $this->db->order_by('nombre_usuario');
-        $this->db->where('idrol !=', 6);
-        $this->db->where('idrol !=', 0);
         $usuarios = $this->db->get('USUARIO');
         return $usuarios;
     }
