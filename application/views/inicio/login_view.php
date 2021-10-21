@@ -14,7 +14,7 @@
 </style>
 <div id="contenedor">
     <div id="wrap">
-        <div class="col-md-8" id="form_login">
+        <div class="col-md-5" id="form_login">
             <h2>Ingreso al sistema</h2>
             <?php echo form_open('inicio/validate_credentials');?>
             <label>Usuario:</label>
@@ -24,7 +24,7 @@
             <input type="submit" value="Ingresar" class="btn btn-default" id="btn_submit">
             <?php echo form_close();?>
         </div>
-        <div class="col-md-4" id="form_login">
+        <div class="col-md-5" id="form_login" style="float:left;">
             <h4>
             <i class="fas fa-shopping-cart"></i>
             <h4>Desea comprar producto sin estar registrado?</h4>

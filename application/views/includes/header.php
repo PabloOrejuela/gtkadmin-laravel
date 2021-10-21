@@ -3,9 +3,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/menu_drop.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/bootstrap/bootstrap-theme.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/jquery-ui.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/jquery-ui.theme.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/autocomplete.css"  />

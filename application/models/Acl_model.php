@@ -21,12 +21,13 @@ class Acl_model extends CI_Model{
             foreach ($q->result() as $value) {
                 $r = $value->$section;
             }
+            
             return $r;
         }
     }
 
     /**
-     * E$xtrae el nombre del usuario
+     * Extrae el nombre y apellido del Socio y los concatena
      *
      * @return void
      * @author Pablo Orejuela
@@ -97,54 +98,6 @@ class Acl_model extends CI_Model{
         else{
             return 0;
         }
-    }
-
-    function extraeDir($usuario){
-        $this->db->select('dirigente');
-        $this->db->where('nombre',$usuario);
-        $q = $this->db->get('socios');
-        if($q->result() > 0){
-            foreach ($q->result() as $value) {
-                $dir = $value->dirigente;
-            }
-            return $dir;
-        }
-    }
-
-    function permisosDir($dir, $section){
-        if($dir == 1){
-            $this->db->select('*');
-            $this->db->where('idrol', 4);
-            $q = $this->db->get('rol');
-            if($q->result() > 0){
-                foreach ($q->result() as $value) {
-                    $r = $value->$section;
-                }
-                return $r;
-            }
-        }
-        else{
-            return FALSE;
-        }
-    }
-
-    function _get_usuarios(){
-        /*
-         * Extrae los usuarios registrados en la base de datos
-         * Es llamada por el controlador archivos en edita_profe
-         */
-        $this->db->order_by('nombre_usuario');
-        $usuarios = $this->db->get('USUARIO');
-        return $usuarios;
-    }
-
-    function _get_roles(){
-        /*
-         * Extrae los Roles de la base de datos
-         * Es llamada por el controlador archivos en edita_profe
-         */
-        $roles = $this->db->get('rol');
-        return $roles;
     }
 
     function _extraePermisos($rol){

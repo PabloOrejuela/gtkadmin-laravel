@@ -12,7 +12,7 @@
 	<tbody>
 		<tr>
 			<td id="td_resumen" colspan="4">
-				<h3 style="text-align: left;font-weight: bold;">Mi Red</h3>
+				<h3 style="text-align: left;font-weight: bold;">Mi Red1 </h3>
 			</td>
 		</tr>
 		<tr>
