@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/gtkadmin';
-$config['system_version'] = 'Beta 0.1.2.5 - 2020-10-17';
+$config['system_version'] = 'Beta 0.1.2.7 - 2021-10-29';
 //echo 'CI versión: ' . CI_VERSION;
 
 /*

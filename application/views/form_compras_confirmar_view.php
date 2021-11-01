@@ -39,7 +39,7 @@
                 <label for="cedula">Cédula:</label>
             </div>
             <div class="col-md-3">
-                <input type="text" name="cedula">
+                <input type="text" name="cedula" />
             </div>
         </div>
         <div class="col-md-12" id="grid_form">
