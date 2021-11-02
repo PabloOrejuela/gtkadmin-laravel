@@ -933,7 +933,7 @@ class Reportes extends CI_Controller {
             $data['codigos_binarios']=$this->administracion_model->_get_codigos_binarios_by_socio($id_socio);
             if ($data['codigos_binarios'] || $data['codigos_uninivel']) {
                 $data['title']='GTK Admin';
-                $data['main_content']='form_red_mis_codigos';
+                $data['main_content']='reportes/form_red_mis_codigos';
                 $this->load->view('includes/template', $data);
             }else{
                 $data['title']='GTK Admin';

@@ -1,7 +1,7 @@
-<div class="row-fluid">
+<div id="table_datos">
     <div class="col-md-12">
     	<h3>Recompra de Producto (ADMINISTRACION)</h3>
-        <table class="table table-bordered" style="width: 60%;">
+        <table class="table table-responsive table-bordered" style="width: 50%;">
     	<?php
 
 

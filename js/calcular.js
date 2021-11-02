@@ -32,7 +32,7 @@ function pregunta_generar_reporte(){
 }
 
 function pregunta_borrar(){
-    if (confirm('¿Está seguro de querer eliminar este alumno?')){
+    if (confirm('¿Está seguro de querer eliminar este registro?')){
        document.form_borrar.submit();
     }
 }

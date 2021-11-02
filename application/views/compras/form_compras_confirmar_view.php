@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div id="table_datos">
     <div class="col-md-12" >
         <form action="compras/ver_lista_compras" method="post" accept-charset="utf-8" id="form_cabecera">
         <div class="col-md-12" id="grid_form">
@@ -73,5 +73,5 @@
                 </tr>
             </tbody>
         </table>
-	</div><!-- /.col-nd-12 --> 	
+	</div>
 </div>

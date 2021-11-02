@@ -184,7 +184,7 @@
   }
 </script>
 
-<div class="container-fluid">
+<div class="table table-responsive" id="table_datos">
 	<div class="row" id="container">
 		<h2>Formulario de Inscripción</h2>
 		<div>

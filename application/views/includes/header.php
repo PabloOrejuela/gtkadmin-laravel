@@ -36,7 +36,7 @@
             $('.dataTable').DataTable();
         });
 
-        function nobackbutton1(){
+        function nobackbutton(){
             
             //Deshabilita el boton de volver atrás del navegador
 
@@ -47,4 +47,4 @@
         }
     </script>
 </head>
-<body onload="nobackbutton();">
+<body>

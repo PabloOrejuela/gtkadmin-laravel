@@ -100,7 +100,7 @@ code {
 }
 
 #body {
-	margin: 0 15px 0 15px;
+	margin: 20px;
 }
 
 p.footer {
@@ -113,7 +113,7 @@ p.footer {
 }
 
 #container {
-	margin: 10px 10px 50px 10px;
+	margin: 20px;
 	width: 80%;
 }
 
@@ -196,8 +196,8 @@ input[type="submit"] {
 
 #form_login {
 	border: 1px dotted #CCC5BE;
-	height: 250px;;
-	margin-top: 40px;
+	height: 100%;
+	margin-top: 20px;
 	padding: 15px;
 	width: 100%;
 }
@@ -265,7 +265,7 @@ input[type="submit"] {
 }
 
 select {
-	height: 30px;
+	font-size: 1em;
 	padding: 3px;
 }
 
@@ -306,12 +306,12 @@ select {
 }
 
 #table_datos {
-	border: 1px solid #D9D5E1;
+
 	font-size: 0.9em;
 	padding: 5px;
 	vertical-align: middle;
-	margin-left: 10px;
-	width: 80%;
+	margin: 20px;
+	width: 90%;
 }
 
 #td_left {
@@ -328,16 +328,15 @@ select {
 }
 
 #td_resumen {
-	border: 1px solid #B9C4CC;
+	
 	vertical-align: middle;
 	text-align: left;
-	padding: 1px;
-	width: auto;
+	padding: 3px;
+	width: 100px;
 	text-align: left;
 }
 
 #td_resumen_financiero {
-	border: 1px solid #B9C4CC;
 	vertical-align: middle;
 	text-align: left;
 	padding: 5px;
@@ -346,7 +345,7 @@ select {
 }
 
 #td_resumen_cabecera_left {
-	border: 1px solid #B9C4CC;
+	
 	vertical-align: middle;
 	text-align: left;
 	font-weight: bold;
@@ -355,7 +354,7 @@ select {
 }
 
 #td_resumen_cabecera_right {
-	border: 1px solid #B9C4CC;
+	
 	vertical-align: middle;
 	padding: 5px;
 	text-align: left;

@@ -117,7 +117,7 @@ class Inicio extends CI_Controller {
 		//echo $this->email->print_debugger();
 	}
 
-    public function email_pin($data, $datos_usuario){
+    function email_pin($data, $datos_usuario){
 		
 		$this->email->from('desarrollo@appdvp.com', 'Admin');
 		$this->email->to($datos_usuario->email);
@@ -161,7 +161,6 @@ class Inicio extends CI_Controller {
                 $data['id'] = $socio['idsocio'];
 
                 //guardo en db pin y expiración
-
                 $this->login_model->_set_pin($data);
 
                 //Enviar email y mostrar form de confirmación
@@ -251,10 +250,9 @@ class Inicio extends CI_Controller {
         
         //Verifico que no haya caducado
         $estado = $this->login_model->_verifica_pin($pin, $socio['idsocio']);
-        
 
-        if (!$pin && $estado === 0) {
-            $this->index();
+        if (!$pin || $estado === 0) {
+            $this->form_confirmacion($socio);
         }else{
             $permiso = $this->acl_model->_verificaRol($socio, $this->seccion);
             $nombre = $socio['nombres'].' '.$socio['apellidos'];

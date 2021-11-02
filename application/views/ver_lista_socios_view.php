@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div id="table_datos">
     <div class="col-md-12">
         <form action="lista_socios_matriz" method="post" accept-charset="utf-8">
         <div class="col-md-12" id="grid_form">

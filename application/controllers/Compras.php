@@ -14,7 +14,7 @@ class Compras extends CI_Controller {
             
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
-            $data['main_content']='form_compras_confirmar_view';
+            $data['main_content']='compras/form_compras_confirmar_view';
             $this->load->view('includes/template', $data);
         }
         else{
@@ -82,7 +82,7 @@ class Compras extends CI_Controller {
             $data['provincias'] = $this->administracion_model->_get_provincias();
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
-            $data['main_content']='form_compras_confirmar_datos_view';
+            $data['main_content']='compras/form_compras_confirmar_datos_view';
             $this->load->view('includes/template', $data);
         }
         else{
@@ -213,7 +213,7 @@ class Compras extends CI_Controller {
 
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
-            $data['main_content']='registra_compra_binaria_view';
+            $data['main_content']='compras/registra_compra_binaria_view';
             $this->load->view('includes/template', $data);
         }
         else{

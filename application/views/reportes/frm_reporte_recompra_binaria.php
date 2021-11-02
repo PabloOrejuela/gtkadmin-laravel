@@ -1,5 +1,5 @@
-<div class="row" style="margin-left: 10px;">
-	<div class="col-md-12">
+<div id="table_datos">
+	<div class="col-md-4">
 		<h2>Reporte de Recompras</h2>
 	</div>
 	<div>

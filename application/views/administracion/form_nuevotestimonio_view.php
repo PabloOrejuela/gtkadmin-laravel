@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div id="table_datos">
     <div class="col-md-12">
         <form action="graba_nuevo_testimonio" method="post" accept-charset="utf-8">
         <div class="col-md-12" id="grid_form">
@@ -43,5 +43,5 @@
             </div>
         </div>
         </form>
-	</div><!-- /.col-nd-12 -->
+	</div>
 </div>

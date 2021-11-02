@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div id="table_datos">
     <div class="col-md-12">
         <form action="ver_lista_compras" method="post" accept-charset="utf-8">
         <div class="col-md-12" id="grid_form">
@@ -75,7 +75,7 @@
                             echo '<td>'.$value['cedula'].'</td>';
                             echo '<td>'.$value['provincia'].'</td>';
                             echo '<td>'.$value['ciudad'].'</td>';
-                            echo '<td style="text-align:right;">$'.number_format(($value['paquete']* 1.14), 2).'</td>';
+                            echo '<td style="text-align:right;">$'.number_format(($value['paquete']), 2).'</td>';
                             echo '<td>'.$value['fecha'].'</td>';
                             echo '<td>UNINIVEL</td>';
                             echo '<td>'.anchor('compras/confirma_compra/'.$value['idcompras'], '<i class="fa fa-check-circle-o" aria-hidden="true"> CONFIRMAR</i>', 'attributes').'</td>';
@@ -90,7 +90,7 @@
                             echo '<td>'.$value['cedula'].'</td>';
                             echo '<td>'.$value['provincia'].'</td>';
                             echo '<td>'.$value['ciudad'].'</td>';
-                            echo '<td style="text-align:right;">$'.number_format(($value['paquete']* 1.14), 2).'</td>';
+                            echo '<td style="text-align:right;">$'.number_format(($value['paquete']), 2).'</td>';
                             echo '<td>'.$value['fecha'].'</td>';
                             echo '<td>BINARIA</td>';
                             echo '<td>'.anchor('compras/confirma_compra_binaria/'.$value['idcompras_binario'], '<i class="fa fa-check-circle-o" aria-hidden="true"> CONFIRMAR</i>', 'attributes').'</td>';

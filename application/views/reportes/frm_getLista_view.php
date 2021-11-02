@@ -1,4 +1,4 @@
-<div class="row" style="margin-left: 10px;">
+<div id="table_datos">
 	<div class="col-md-12">
 		<h2>Lista de Códigos</h2>
 		<br>

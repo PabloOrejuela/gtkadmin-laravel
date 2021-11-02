@@ -447,10 +447,10 @@ join (SELECT MAX(`fecha`) as max_fecha from `compras_binario`) m ON m.max_fecha 
         /*
         *	Se usa en las nuevas matrices
         */
-
+	
         $this->db->trans_start();
         $this->db->set('idcodigo_socio_binario', $data['idcodigo_socio_binario']);
-        $this->db->set('fecha', $data['fecha_recompra']);
+        $this->db->set('fecha', date("Y-m-d"));
         $this->db->set('idpaquete', $data['idpaquete']);
         $this->db->insert('compras_binario');
         $this->db->trans_complete();

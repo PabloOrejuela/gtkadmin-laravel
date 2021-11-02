@@ -18,7 +18,7 @@ class Testimonios extends CI_Controller {
         if (isset($is_logged) == true || isset($is_logged) == 1) {
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
-            $data['main_content']='form_nuevotestimonio_view';
+            $data['main_content']='administracion/form_nuevotestimonio_view';
             $this->load->view('includes/template', $data);
         }
         else{
@@ -50,7 +50,7 @@ class Testimonios extends CI_Controller {
 	        if (isset($is_logged) == true || isset($is_logged) == 1) {
 	            $data['version'] = $this->config->item('system_version');
 	            $data['title']='GTK Admin';
-	            $data['main_content']='form_nuevotestimonio_view';
+	            $data['main_content']='administracion/form_nuevotestimonio_view';
 	            $this->load->view('includes/template', $data);
 	        }
 	        else{

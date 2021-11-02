@@ -1,7 +1,7 @@
-<div class="row" style="margin-left: 10px;">
+<div id="table_datos">
 	<h2>Información de mi Red y mis patrocinados</h2>
 	<p>Seleccione el código del que requiere generar el reporte</p>
-	<div class="col-md-8">
+	<div class="col-md-12">
 	<table class="table table-striped table-hover" style="margin: 0px;margin-bottom: 20px;">
 		<thead>
 			<tr>

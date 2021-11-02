@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div id="table_datos">
     <div class="col-md-12" >
         <form action="compras/ver_lista_compras" method="post" accept-charset="utf-8" id="form_cabecera">
         <div class="col-md-12" id="grid_form">
@@ -50,7 +50,7 @@
         </div>
         </form>
 
-        <table class="table table-bordered" id="table_resumen">
+        <table class="table table-responsive table-bordered" id="table_resumen">
             <thead>
                 <tr>
                     <th>CODIGO</th>

@@ -1,4 +1,4 @@
-<table class="table table-responsive" id="table_datos">
+<table id="table_datos">
     <tbody>
         <tr>
             <td id="td_resumen" colspan="4">
@@ -35,7 +35,7 @@
     </tbody>
 </table>
 <?php  if ($idmatrices == 3) {?>
-<table class="table table-responsive" id="table_datos" style="font-size: 0.7em;color:#2A5A86;padding: 1px;">
+<table class="table table-responsive table-bordered" id="table_datos" style="font-size: 0.8em;color:#2A5A86;padding: 1px;">
   <tr><th><h4>Nomeclatura:</h4></th></tr>
   <tr>
       <th id="td_resumen">BIR:</th>
@@ -51,7 +51,7 @@
   </tr>
 </table>
 <?php }else{ ?>
-<table class="table table-responsive" id="table_datos" style="font-size: 0.7em;color:#2A5A86;padding: 1px;">
+<table class="table table-responsive table-bordered" id="table_datos" style="font-size: 0.7em;color:#2A5A86;padding: 1px;">
     <tr><th><h4>Nomeclatura:</h4></th></tr>
     <tr>
       <th id="td_resumen">BIR:</th>
@@ -65,7 +65,7 @@
 <?php } ?>
 
 <br>
-<table class="table table-responsive" id="table_resumen">
+<table class="table table-responsive table-bordered" id="table_datos">
     <?php
 
         $regalias = 0;

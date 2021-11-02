@@ -1,8 +1,8 @@
-<div class="row" style="margin-left: 10px;">
+<div id="table_datos">
 	<h2>Bono constante</h2>
 	<p>Seleccione el código del que requiere generar el reporte de bonos constantes</p>
-	<div class="col-md-8">
-	<table class="table table-striped table-hover" style="margin: 0px;margin-bottom: 20px;">
+	<div class="col-md-12">
+	<table class="table table-responsive table-bordered" id="table_datos">
 		<thead>
 			<tr>
 				<th>MATRIZ</th>
@@ -10,7 +10,6 @@
 				<th>FECHA DE INSCRIPCION</th>
 				<th>BONO CONSTANTE DEL MES</th>
 				<th>RED</th>
-				<th></th>
 			</tr>
 		</thead>
 		<tbody>
