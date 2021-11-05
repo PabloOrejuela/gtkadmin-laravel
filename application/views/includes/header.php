@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/tablas/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url(); ?>css/estilo.css" />
 
-    <script language="javascript" type="text/javascript" src="<?php echo base_url(); ?>js/jquery-1.12.3.min.js" ></script>
+    <script language="javascript" type="text/javascript" src="<?php echo base_url(); ?>js/jquery-3.6.0.min.js" ></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>js/jquery.validate.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>js/livevalid.js" charset="utf-8"></script>
     <script src="https://kit.fontawesome.com/7653d2ff86.js" crossorigin="anonymous"></script>
 
     <script language="javascript" type="text/javascript" src="<?php echo base_url(); ?>js/jquery-ui-1.10.4.custom.min.js" ></script>
     <script language="JavaScript" type="text/javascript" src="<?php echo base_url(); ?>js/jquery.validationEngine.js" charset="utf8"></script>
-    <script language="JavaScript" type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.min.js" charset="utf-8"></script>
+    <script language="JavaScript" type="text/javascript" src="<?php echo base_url(); ?>js/bootstrap.bundle.min.js" charset="utf-8"></script>
     <script language="JavaScript" type="text/javascript" src="<?php echo base_url(); ?>js/calcular.js" charset="utf-8"></script>
     <script language="JavaScript" type="text/javascript" src="<?php echo base_url(); ?>js/smart_menu.js" type="text/javascript"></script>
     <script language="JavaScript" type="text/javascript" src="<?php echo base_url(); ?>js/smart_menu_2.js" type="text/javascript"></script>

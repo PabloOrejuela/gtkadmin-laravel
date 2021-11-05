@@ -419,7 +419,7 @@ class Reportes extends CI_Controller {
         $data['per'] = $this->acl_model->_extraePermisos($rol);
         $is_logged = $this->session->userdata('is_logged_in');
         if (isset($is_logged) == true || isset($is_logged) == 1) {
-            // PABLO: debría poner el valor de la idciudad en la session por que al refrescar se pierde
+            // PABLO: El valor de la idciudad está en la sessión;
             $idmatrices = $this->input->post('idmatrices');
             if ($idmatrices == 'NULL') {
                 $data['matrices'] = $this->procesos_model->_get_matrices();
@@ -431,6 +431,7 @@ class Reportes extends CI_Controller {
             }else{
                 $id_ciudad = $this->input->post('id_ciudad');
                 $idmatrices = $this->input->post('idmatrices');
+				$_SESSION['id_ciudad'] = $id_ciudad;
 
                 if ($idmatrices == 2) {
                     $ciudad = $this->procesos_model->_get_ciudad_nombre($id_ciudad);
@@ -976,7 +977,7 @@ class Reportes extends CI_Controller {
             $data['bono_rango'] = $this->procesos_model->_get_bono_rango($data['rango']['idrango']);
 
             $data['litros_movidos'] = $this->procesos_model->_get_litros_movidos_red($data['idcod_socio']);
-//echo '<pre>'.var_dump($data['patrocinados']).'</pre>';
+
             $data['litros_rango'] = $this->procesos_model->_get_litros_rango($data['rango']['idrango']);
             $data['litros_movidos_totales'] = $data['litros_movidos'] + $data['compras_socio'];
 
@@ -1009,8 +1010,11 @@ class Reportes extends CI_Controller {
             //BINARIO
             $data['idmatrices'] = 2;
             $data['socio'] = $this->administracion_model->_get_array_socio_by_id($id_socio);
-            $data['bir'] = $this->procesos_model->_calcula_BIR_binario_cinco_niveles($id_codigo);
-            $data['patrocinados'] = $this->procesos_model->_es_patrocinador($data['idcod_socio']);
+			//PABLO: Arreglar el calculo del bono constante, Ya no hay BIR ahora es bono mensual cada que los socios compren
+            
+			$data['patrocinados'] = $this->procesos_model->_get_patrocinados($id_codigo);
+			$data['bono_constante'] = $this->procesos_model->_calcula_bonoconstante_binario($data['patrocinados']);
+			
             // PABLO Revisar si hay puntos del mes anterior para poder acumularlos al siguiente mes
             $data['compras_socio'] = $this->procesos_model->_get_cuentas_socio_binario_idcod($id_codigo);
             $data['compras_frontales'] = $this->procesos_model->_get_cuentas_frontales_binario_idcod($id_codigo);
@@ -1069,7 +1073,7 @@ class Reportes extends CI_Controller {
         $this->pdf->SetLineStyle(array('width' => 0.01, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(3, 0, 3)));
 
         // Saltos de página automáticos.
-        $this->pdf->SetAutoPageBreak(TRUE, 'PDF_MARGIN_BOTTOM');
+        $this->pdf->SetAutoPageBreak(TRUE, 10);
 
         // Establecer el ratio para las imagenes que se puedan utilizar
         //$this->pdf->setImageScale('PDF_IMAGE_SCALE_RATIO');
@@ -1077,7 +1081,7 @@ class Reportes extends CI_Controller {
         // Establecer la fuente
         $this->pdf->SetFont('Helvetica', 'B', 12);
         $this->pdf->SetMargins(20, 20);
-
+		
         // Añadir página
         $this->pdf->AddPage();
 
@@ -1181,6 +1185,7 @@ class Reportes extends CI_Controller {
             $_SESSION['nodo_atras'] = $idcodigo;
 
             $data['nombre_socio'] = $this->procesos_model->_get_nombre_id_socio($id_socio);
+			$_SESSION['nombre_socio'] = $data['nombre_socio'];
             $data['idsocio'] = $id_socio;
             $data['red'] = $this->procesos_model->_arma_red_binaria($idcodigo);
             //$data['socios'] = $this->procesos_model->get_piramide_by_matriz($id_socio);
@@ -1242,7 +1247,7 @@ class Reportes extends CI_Controller {
         $rol =$this->session->userdata('rol');
         $data['per'] = $this->acl_model->_extraePermisos($rol);
 
-        $data['nombre_socio'] = $this->procesos_model->_get_nombre_id_socio(1);
+        $data['nombre_socio'] = $_SESSION['nombre_socio'];
         $data['idsocio'] = $_SESSION['nodo_actual'];
 
         $data['red'] = $this->procesos_model->_arma_red_binaria($_SESSION['nodo_actual']);

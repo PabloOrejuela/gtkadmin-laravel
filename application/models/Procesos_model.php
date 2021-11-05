@@ -1736,100 +1736,32 @@ class Procesos_model extends CI_Model {
 
 
 	/**
-	 * Hace el cálculo de los BIR del socio hasta el 5to nivel
+	 * Hace el cálculo del Bono Constante hasta el 5to nivel
 	 *
 	 * @return void
 	 * @author Pablo Orejuela
+	 * @fecha 5-11-2021
 	 **/
-	function _calcula_BIR_binario_cinco_niveles($id_codigo){
+	function _calcula_bonoconstante_binario($patrocinados){
 		
 		$bir = 0;
 		
-		//Debo hacer un array con todos los directos PRIMER NIVEL
-		$primer_nivel = $this->_get_mis_directos($id_codigo);
-		foreach ($primer_nivel as $key => $value) {
-			$paquete = $this->_get_paquete_codigo_binario($value);
-			if ($paquete == 1) {
+		foreach ($patrocinados as $key => $value) {
+			$paquete = $this->_get_paquete_codigo_binario($value->idcodigo_socio_binario);
+			if ($paquete == 200) {
 				$bir += 40;
-			}else if ($paquete == 2) {
+			}else if ($paquete == 500) {
 				$bir += 100;
-			}else if($paquete == 3){
+			}else if($paquete == 1000){
 				$bir += 200;
-			}else if($paquete == 5){
+			}else if($paquete == 300){
+				$bir += 50;
+			}else if($paquete == 85){
 				$bir += 10;
-			}else if($paquete == 6){
+			}else if($paquete == 112){
 				$bir += 20;
 			}
-
 		}
-		
-		$segundo_nivel = $this->_calcula_BIR_binario_nivel_inf($primer_nivel);
-		foreach ($segundo_nivel as $key => $value_2) {
-			$paquete = $this->_get_paquete_codigo_binario($value_2);
-			if ($paquete == 1) {
-				$bir += 6;
-			}else if ($paquete == 2) {
-				$bir += 15;
-			}else if($paquete == 3){
-				$bir += 30;
-			}else if($paquete == 5){
-				$bir += 2;
-			}else if($paquete == 6){
-				$bir += 3;
-			}
-
-		}
-
-		$tercer_nivel = $this->_calcula_BIR_binario_nivel_inf($segundo_nivel);
-		foreach ($tercer_nivel as $key => $value_3) {
-			$paquete = $this->_get_paquete_codigo_binario($value_3);
-			if ($paquete == 1) {
-				$bir += 6;
-			}else if ($paquete == 2) {
-				$bir += 15;
-			}else if($paquete == 3){
-				$bir += 30;
-			}else if($paquete == 5){
-				$bir += 2;
-			}else if($paquete == 6){
-				$bir += 3;
-			}
-
-		}
-
-		$cuarto_nivel = $this->_calcula_BIR_binario_nivel_inf($tercer_nivel);
-		foreach ($cuarto_nivel as $key => $value_4) {
-			$paquete = $this->_get_paquete_codigo_binario($value_4);
-			if ($paquete == 1) {
-				$bir += 6;
-			}else if ($paquete == 2) {
-				$bir += 15;
-			}else if($paquete == 3){
-				$bir += 30;
-			}else if($paquete == 5){
-				$bir += 2;
-			}else if($paquete == 6){
-				$bir += 3;
-			}
-
-		}
-
-		$quinto_nivel = $this->_calcula_BIR_binario_nivel_inf($cuarto_nivel);
-		foreach ($quinto_nivel as $key => $value_5) {
-			$paquete = $this->_get_paquete_codigo_binario($value_5);
-			if ($paquete == 1) {
-				$bir += 10;
-			}else if ($paquete == 2) {
-				$bir += 25;
-			}else if($paquete == 3){
-				$bir += 50;
-			}else if($paquete == 5){
-				$bir += 5;
-			}else if($paquete == 6){
-				$bir += 5;
-			}
-		}
-
 		return $bir;
 	}
 
@@ -1946,6 +1878,7 @@ class Procesos_model extends CI_Model {
 	function _get_paquete_codigo_binario($idcod_socio){
 		$compras = 0;
 		$mes_actual = date('m');
+		
 		$this->db->where('idcodigo_socio_binario', $idcod_socio);
 		$this->db->where('pago', 1);
 		$this->db->where('MONTH(fecha)', $mes_actual);
@@ -1971,16 +1904,15 @@ class Procesos_model extends CI_Model {
 		$mes_actual = date('m');
 		$this->db->where('idcodigo_socio_binario', $idcod_socio);
 		$this->db->where('pago', 1);
-		$this->db->where('MONTH(fecha)', $mes_actual-1);
 		$this->db->join('paquetes', 'paquetes.idpaquete = compras_binario.idpaquete');
 		$this->db->order_by('idcompras_binario','desc');
 		$q = $this->db->get('compras_binario', 1);
 		//echo $this->db->last_query();
-		if ($q->num_rows() > 0) {
+		if ($q->num_rows() == 1) {
 			foreach ($q->result() as $value) {
-				$compras = $value->idpaquete;
+				$paquete = $value->idpaquete;
 			}
-			return $compras;
+			return $paquete;
 		}else{
 			return 0;
 		}
@@ -2154,6 +2086,29 @@ class Procesos_model extends CI_Model {
 		$patro = null;
 		//$idrango = $this->_get_rango_idcodigo($idcod_socio);
 		$this->db->select('idcodigo_socio_binario,codigo_socio_binario');
+		$this->db->where('patrocinador', $idsocio);
+        $q = $this->db->get('codigo_socio_binario');
+        //echo $this->db->last_query();
+        if($q->num_rows() > 0){
+            foreach ($q->result() as $p) {
+				$patro[] = $p;
+            }
+            return $patro;
+        }
+        else{
+        	return 0;
+        }
+	}
+
+	/**
+	 * devuelve datos del patrocinador desde la tabla codigo_socio_binario
+	 *
+	 * @return array
+	 * @author Pablo Orejuela
+	 **/
+	function _get_patrocinados($idsocio){
+		$patro = null;
+		$this->db->select('idcodigo_socio_binario');
 		$this->db->where('patrocinador', $idsocio);
         $q = $this->db->get('codigo_socio_binario');
         //echo $this->db->last_query();
@@ -2801,6 +2756,7 @@ class Procesos_model extends CI_Model {
 			if ($q->num_rows() >= 0) {
 				foreach ($q->result() as $value) {
 					$socios[] = $value;
+					$_SESSION['patrocinador'] = $value->patrocinador;
 				}
 			}else{
 				$socios[] = 0;

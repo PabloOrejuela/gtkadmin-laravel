@@ -38,8 +38,6 @@
 <table class="table table-responsive table-bordered" id="table_datos" style="font-size: 0.8em;color:#2A5A86;padding: 1px;">
   <tr><th><h4>Nomeclatura:</h4></th></tr>
   <tr>
-      <th id="td_resumen">BIR:</th>
-      <td id="td_resumen">Bono de inicio rápido</td>
       <th id="td_resumen">Bono extra:</th>
       <td id="td_resumen">Bono recibido si se ingresa en la semana 3 o 5 socios nuevos</td>
 	 </tr>
@@ -51,12 +49,8 @@
   </tr>
 </table>
 <?php }else{ ?>
-<table class="table table-responsive table-bordered" id="table_datos" style="font-size: 0.7em;color:#2A5A86;padding: 1px;">
+<table class="table table-responsive table-bordered" id="table_datos" style="font-size: 0.8em;color:#2A5A86;padding: 1px;">
     <tr><th><h4>Nomeclatura:</h4></th></tr>
-    <tr>
-      <th id="td_resumen">BIR:</th>
-      <td id="td_resumen">Bono de inicio rápido</td>
-    </tr>
     <tr>
       <th id="td_resumen">Estado:</th>
       <td id="td_resumen">Activo si el socio y sus frontales han realizado compra en el período</td>
@@ -118,7 +112,7 @@
                 <th id="td_resumen">Categoria</th>
                 <th id="td_resumen">Estado</th>
                 <th id="td_resumen">Socios nuevos Mes</th>
-                <th id="td_resumen">BIR</th>
+                <th id="td_resumen">Bono constante</th>
                 
                 <th style="border:none;"></th>
                 <th id="td_resumen">Binario Izquierdo</th>
@@ -163,14 +157,17 @@
 
             echo '<tr>
             <td id="td_resumen_financiero">'.$socio['rango'].'</td>';
-            if ($compras_socio > 0 && $compras_frontales != 0 && $nuevos_socios_mes >= 2 || $socio['codigo_socio_binario'] == 'TUNCL-B01') {
-                // PABLO: arreglar esto para que verifique que los dos frontales hayan comprado
+            /*if ($compras_socio > 0 && $compras_frontales != 0 && $nuevos_socios_mes >= 2 || $socio['codigo_socio_binario'] == 'TUNCL-B01') {
+                
                 echo '<td id="td_resumen_financiero">Activo</td>';
-            }else{
+            }*/
+			if($compras_socio > 0){ //Ahora solo debe tener recompra para estar activo
+				echo '<td id="td_resumen_financiero">Activo</td>';
+			}else{
                 echo '<td id="td_resumen_financiero" style="color:red;">Inactivo</td>';
             }
             echo '<td id="td_resumen_financiero">'.$nuevos_socios_mes.'</td>';
-            echo '<td id="td_resumen_financiero">$ '.number_format($bir, 2).'</td>';
+            echo '<td id="td_resumen_financiero">$ '.number_format($bono_constante, 2).'</td>';
 
             echo '<td style="border:none;"></td>';
             echo '<td id="td_resumen_financiero">'.$registro_mes['puntos_izq'].' Puntos</td>';

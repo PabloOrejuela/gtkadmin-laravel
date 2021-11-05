@@ -1,4 +1,4 @@
-<div class="row-fluid">
+<div class="row-fluid" id="table_datos">
     <div class="col-md-12">
     	<caption><h4>Mis Socios Directos Binaria: <?php echo '<strong>'.$socio['nombres'].' '.$socio['apellidos'].'</strong>'; ?></h4></caption>
         <table class="table table-stripped table-bordered" style="width: 50%;">
@@ -15,18 +15,15 @@
             if (isset($patrocinados) && $patrocinados != NULL) {
                 foreach ($patrocinados as $key => $value) {
                     $paquete =  $this->procesos_model->_get_paquete_codigo_binario($value->idcodigo_socio_binario);
+					$compras_socio = $this->procesos_model->_get_cuentas_socio_binario_idcod($value->idcodigo_socio_binario);
+					echo $paquete;
                     echo '<tr><td>'.$n.'</td>';
                     echo '<td>'.$value->codigo_socio_binario.'</td>';
                     echo '<td>'.$value->nombres.' '.$value->apellidos.'</td>';
                     echo '<td>'.$value->fecha_inscripcion.'</td>';
-                    if ($paquete == 1) {
-                        echo '<td style="text-align: right;"> $200</td>';
-                        echo '<td style="text-align: center;"> ACTIVO</td></tr>';
-                    }else if($paquete == 2){
-                        echo '<td style="text-align: right;"> $500</td>';
-                        echo '<td style="text-align: center;"> ACTIVO</td></tr>';
-                    }else if($paquete == 3){
-                        echo '<td style="text-align: right;"> $1000</td>';
+					
+                    if ($compras_socio != 0) {
+                        echo '<td style="text-align: right;">'.$paquete.'</td>';
                         echo '<td style="text-align: center;"> ACTIVO</td></tr>';
                     }else{
                         echo '<td style="text-align: right;"> $0</td>';

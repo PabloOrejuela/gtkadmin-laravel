@@ -45,7 +45,7 @@
     })
 </script>
 
-<div class="row-fluid">
+<div class="row-fluid" id="table_datos">
     <div class="col-md-12" style="margin-bottom: 200px;">
     	<caption><h5>Mi Red Binaria: <?php echo '<strong>'.$nombre_socio.'</strong>'; ?></h5></caption>
     	<table class="table table-bordered" style="font-size: 0.8em;width: 200px;">
@@ -168,6 +168,8 @@
             $color = '';
             $width = 1080;
             $final_td = pow(2,$nivel);
+			$ultimo_paquete = $this->procesos_model->_get_ultimo_paquete_codigo_binario($miembros[$cont]['idsocio']);
+			
             for ($i=0; $i < $nivel ; $i++) {
                 $num = pow(2, $i);
                 $table .= '<table class="table_middle"><tr>';
@@ -185,34 +187,35 @@
                         if ($miembros[$cont]['idsocio']==$idsocio) {
                             $paquete =  $this->procesos_model->_get_paquete_codigo_binario($miembros[$cont]['idsocio']);
                             $nombre_patrocinador = $this->procesos_model->_get_nombre_id_socio_binario($miembros[$cont]['patrocinador']);
-                            $ultimo_paquete =  $this->procesos_model->_get_ultimo_paquete_codigo_binario($miembros[$cont]['idsocio']);
+							$ultimo_paquete =  $paquete;
+                            
 
                             //Primero en la pirámide
                             if ($ultimo_paquete == 0) {
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/none_center.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person_none.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 1){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 2){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 3){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 4){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/person_300.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person_300.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 5){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 6){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }
                             else{
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/none_center.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'/images/persons/person_none.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }
                             
                             /*Campos adicionales*/
@@ -244,32 +247,32 @@
                                 //Primero en la pirámide
                                 $paquete =  $this->procesos_model->_get_paquete_codigo_binario($miembros[$cont]['idsocio']);
                                 $nombre_patrocinador = $this->procesos_model->_get_nombre_id_socio_binario($miembros[$cont]['patrocinador']);
-                                $ultimo_paquete =  $this->procesos_model->_get_ultimo_paquete_codigo_binario($miembros[$cont]['idsocio']);
-
+                                
+								
                                 if ($ultimo_paquete == 0) {
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/person_gris.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/person-gris.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 1){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 2){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 3){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 4){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/person_300.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/person_300.png" class="socios_piramide" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 5){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 6){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else{
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/none_center.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'/images/persons/none_center.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }
 
 
