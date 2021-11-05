@@ -825,7 +825,7 @@ class Procesos_model extends CI_Model {
 	}
 
 	/**
-	 * Verifica si hay registrada regalía del mes
+	 * Verifica si hay registrada regalía del mes y devuelve los valores
 	 *
 	 * @return array
 	 * @author Pablo Orejuela
@@ -877,12 +877,14 @@ class Procesos_model extends CI_Model {
 	}
 
 	/**
-	 * undocumented function
+	 * Calcula los puntos ganados de este mes y actualiza el registro
 	 *
 	 * @return void
 	 * @author Pablo Orejuela
+	 * @fecha 05-11-2021
 	 **/
 	function _actualiza_puntos_binario($idcod_socio, $piernas, $mis_puntos, $mes_actual){
+		
 		$fecha_actual = date('Y-m-d');
 		$base = $this->_get_volumen_idcodigo_binario($idcod_socio);
 
@@ -1742,12 +1744,17 @@ class Procesos_model extends CI_Model {
 	 * @author Pablo Orejuela
 	 * @fecha 5-11-2021
 	 **/
-	function _calcula_bonoconstante_binario($patrocinados){
+	function _calcula_bonoconstante_binario($id_codigo){
 		
 		$bir = 0;
-		
-		foreach ($patrocinados as $key => $value) {
-			$paquete = $this->_get_paquete_codigo_binario($value->idcodigo_socio_binario);
+
+		//Nivel 1
+		$inf_1 = $id_codigo*2;
+		$sup_1 = $inf_1 + 1;
+		$primer_nivel = range($inf_1, $sup_1, 1);
+
+		foreach ($primer_nivel as $key => $value) {
+			$paquete = $this->_get_paquete_codigo_binario($value);
 			if ($paquete == 200) {
 				$bir += 40;
 			}else if ($paquete == 500) {
@@ -1755,13 +1762,102 @@ class Procesos_model extends CI_Model {
 			}else if($paquete == 1000){
 				$bir += 200;
 			}else if($paquete == 300){
-				$bir += 50;
+				$bir += 60;
 			}else if($paquete == 85){
 				$bir += 10;
 			}else if($paquete == 112){
 				$bir += 20;
 			}
 		}
+
+		//Nivel 2
+		$inf_2 = $inf_1*2;
+		$sup_2 = $inf_2 + 1;
+		$segundo_nivel = range($inf_2, $sup_2, 1);
+
+		foreach ($segundo_nivel as $key => $value) {
+			$paquete = $this->_get_paquete_codigo_binario($value);
+			if ($paquete == 200) {
+				$bir += 6;
+			}else if ($paquete == 500) {
+				$bir += 15;
+			}else if($paquete == 1000){
+				$bir += 30;
+			}else if($paquete == 300){
+				$bir += 9;
+			}else if($paquete == 85){
+				$bir += 2;
+			}else if($paquete == 112){
+				$bir += 3;
+			}
+		}
+
+		//Nivel 3
+		$inf_3 = $inf_2*2;
+		$sup_3 = $inf_3 + 1;
+		$tercer_nivel = range($inf_3, $sup_3, 1);
+
+		foreach ($tercer_nivel as $key => $value) {
+			$paquete = $this->_get_paquete_codigo_binario($value);
+			if ($paquete == 200) {
+				$bir += 6;
+			}else if ($paquete == 500) {
+				$bir += 15;
+			}else if($paquete == 1000){
+				$bir += 30;
+			}else if($paquete == 300){
+				$bir += 9;
+			}else if($paquete == 85){
+				$bir += 2;
+			}else if($paquete == 112){
+				$bir += 3;
+			}
+		}
+
+		//Nivel 4
+		$inf_4 = $inf_3*2;
+		$sup_4 = $inf_4 + 1;
+		$cuarto_nivel = range($inf_4, $sup_4, 1);
+
+		foreach ($cuarto_nivel as $key => $value) {
+			$paquete = $this->_get_paquete_codigo_binario($value);
+			if ($paquete == 200) {
+				$bir += 6;
+			}else if ($paquete == 500) {
+				$bir += 15;
+			}else if($paquete == 1000){
+				$bir += 30;
+			}else if($paquete == 300){
+				$bir += 9;
+			}else if($paquete == 85){
+				$bir += 2;
+			}else if($paquete == 112){
+				$bir += 3;
+			}
+		}
+
+		//Nivel 5
+		$inf_5 = $inf_4*2;
+		$sup_5 = $inf_5 + 1;
+		$quinto_nivel = range($inf_5, $sup_5, 1);
+
+		foreach ($quinto_nivel as $key => $value) {
+			$paquete = $this->_get_paquete_codigo_binario($value);
+			if ($paquete == 200) {
+				$bir += 10;
+			}else if ($paquete == 500) {
+				$bir += 25;
+			}else if($paquete == 1000){
+				$bir += 50;
+			}else if($paquete == 300){
+				$bir += 15;
+			}else if($paquete == 85){
+				$bir += 3;
+			}else if($paquete == 112){
+				$bir += 5;
+			}
+		}
+
 		return $bir;
 	}
 
@@ -1818,8 +1914,6 @@ class Procesos_model extends CI_Model {
 	 * @throws conditon
 	 **/
 	public function _bono_constante($idcodigo_socio_binario){
-
-		
 
 		$bono_constante = 0;
 

@@ -1000,6 +1000,7 @@ class Reportes extends CI_Controller {
         $leg['izq'] = 0;
         $leg['der'] = 0;
          // PABLO hacer una funcion que revise las compras y que actualice el rango antes de sacar el resumen
+		 // PABLO Revisar si hay puntos del mes anterior para poder acumularlos al siguiente mes
         $rol =$this->session->userdata('rol');
         $id_socio =$this->session->userdata('id');
         $data['per'] = $this->acl_model->_extraePermisos($rol);
@@ -1010,19 +1011,18 @@ class Reportes extends CI_Controller {
             //BINARIO
             $data['idmatrices'] = 2;
             $data['socio'] = $this->administracion_model->_get_array_socio_by_id($id_socio);
-			//PABLO: Arreglar el calculo del bono constante, Ya no hay BIR ahora es bono mensual cada que los socios compren
             
 			$data['patrocinados'] = $this->procesos_model->_get_patrocinados($id_codigo);
-			$data['bono_constante'] = $this->procesos_model->_calcula_bonoconstante_binario($data['patrocinados']);
-			
-            // PABLO Revisar si hay puntos del mes anterior para poder acumularlos al siguiente mes
+			$data['bono_constante'] = $this->procesos_model->_calcula_bonoconstante_binario($id_codigo);
             $data['compras_socio'] = $this->procesos_model->_get_cuentas_socio_binario_idcod($id_codigo);
-            $data['compras_frontales'] = $this->procesos_model->_get_cuentas_frontales_binario_idcod($id_codigo);
+            //$data['compras_frontales'] = $this->procesos_model->_get_cuentas_frontales_binario_idcod($id_codigo);
             $data['nuevos_socios_mes'] = $this->procesos_model->_es_patrocinador_BIR_binario($data['idcod_socio']);
             $data['mispuntos'] = $this->procesos_model->_get_puntaje_by_codigo($id_codigo);
+			
             $data['piernas'] = $this->procesos_model->_get_hijos_binario_nivel($data['idcod_socio'], $leg);
             //echo '<pre>línea 1014 '.var_export($data['bir'], true).'</pre>';
             //ACTUALIZO LA TABLA DE PUNTOS Y BONOS
+			
             $this->procesos_model->_actualiza_puntos_binario($data['idcod_socio'], $data['piernas'], $data['mispuntos'], $mes_actual);
 
             $data['registro_mes'] = $this->procesos_model->_bono_mes_binario($data['idcod_socio'], $mes_actual);
