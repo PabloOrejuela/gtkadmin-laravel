@@ -249,8 +249,10 @@ class Inicio extends CI_Controller {
         $socio = $this->input->post('socio');
         
         //Verifico que no haya caducado
-        $estado = $this->login_model->_verifica_pin($pin, $socio['idsocio']);
-
+		if (isset($socio) && $socio != NULL) {
+			$estado = $this->login_model->_verifica_pin($pin, $socio['idsocio']);
+		}
+        
         if (!$pin || $estado === 0) {
             $this->form_confirmacion($socio);
         }else{
