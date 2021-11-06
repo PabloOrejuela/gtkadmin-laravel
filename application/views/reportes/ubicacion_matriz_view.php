@@ -193,29 +193,29 @@
                             //Primero en la pirámide
                             if ($ultimo_paquete == 0) {
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person_none.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person_none.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 1){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 2){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 3){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 4){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person_300.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person_300.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 5){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }else if($ultimo_paquete == 6){
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }
                             else{
                                 $table .= '<div class="div_afiliado">
-                                <img src="'.base_url().'/images/persons/person_none.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                <img src="'.base_url().'images/persons/person_none.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                             }
                             
                             /*Campos adicionales*/
@@ -251,28 +251,28 @@
 								
                                 if ($ultimo_paquete == 0) {
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/person-gris.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/person_gris.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 1){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/person.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 2){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/person_orange.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 3){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/person_green.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 4){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/person_300.png" class="socios_piramide" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/person_300.png" class="socios_piramide" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 5){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/person_85.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else if($ultimo_paquete == 6){
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/person_112.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }else{
                                     $table .= '<div class="div_afiliado">
-                                    <img src="'.base_url().'/images/persons/none_center.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
+                                    <img src="'.base_url().'images/persons/none_center.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">';
                                 }
 
 
@@ -313,38 +313,40 @@
                                 // echo $miembros[$cont]['nombres'].' = '.$paquete. ' - ' .$miembros[$cont]['rango'] . '<br>';
                                 if ($miembros[$cont]['rama'] == 1) {
                                     if ($miembros[$cont]['nombres'] == 'UNDEFINED' && $ultimo_paquete == 0) {
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/empty_left.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/empty_left.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 1){
-                                         $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_blue_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                         $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_blue_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 2){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_orange_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_orange_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 3){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_green_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_green_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 4){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_300_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_300_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 5){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_85_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_85_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 6){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_112_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_112_left.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else{
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/none_left.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/none_left.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }
 
                                 }else{
                                     if ($miembros[$cont]['nombres'] == 'UNDEFINED' && $ultimo_paquete == 0) {
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/empty_right.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/empty_right.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 1){
-                                         $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_blue_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                         $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_blue_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 2){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_orange_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_orange_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 3){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_green_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_green_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 4){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_300_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_300_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 5){
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/person_85_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_85_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                    }else if($miembros[$cont]['nombres'] != 'UNDEFINED' && $ultimo_paquete == 6){
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/person_112_right.png" class="socios_piramide"  width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }else{
-                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'/images/none_right.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
+                                        $table .= '<div class="div_afiliado">'.anchor("reportes/mi_red_binaria_nav/$idcodigo_socio_binario", '<img src="'.base_url().'images/none_right.png" class="socios_piramide" width="'.$tam.'px" id="'.$i.'_'.$j.'">', 'title="Navegacion"');
                                     }
                                 }
                                 /*Campos adicionales*/

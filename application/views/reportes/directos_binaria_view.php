@@ -1,6 +1,6 @@
 <div class="row-fluid" id="table_datos">
     <div class="col-md-12">
-    	<caption><h4>Mis Socios Directos Binaria: <?php echo '<strong>'.$socio['nombres'].' '.$socio['apellidos'].'</strong>'; ?></h4></caption>
+    	<caption><h4>Mis Distribuidores Directos Red Binaria: <?php echo '<strong>'.$socio['nombres'].' '.$socio['apellidos'].'</strong>'; ?></h4></caption>
         <table class="table table-stripped table-bordered" style="width: 50%;">
             <thead>
                 <th>No.</th>
@@ -16,7 +16,7 @@
                 foreach ($patrocinados as $key => $value) {
                     $paquete =  $this->procesos_model->_get_paquete_codigo_binario($value->idcodigo_socio_binario);
 					$compras_socio = $this->procesos_model->_get_cuentas_socio_binario_idcod($value->idcodigo_socio_binario);
-					echo $paquete;
+					
                     echo '<tr><td>'.$n.'</td>';
                     echo '<td>'.$value->codigo_socio_binario.'</td>';
                     echo '<td>'.$value->nombres.' '.$value->apellidos.'</td>';

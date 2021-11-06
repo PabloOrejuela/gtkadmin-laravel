@@ -122,7 +122,7 @@
                 <th id="td_resumen">BASE NIVEL</th>
                 <th id="td_resumen">Saldo Izquierdo</th>
                 <th id="td_resumen">Saldo Derecho</th>
-                <th id="td_resumen">BONO</th>
+                <th id="td_resumen" style="text-align: center;">Regalias</th>
             </tr>
         </thead>';
 		}

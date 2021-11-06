@@ -50,11 +50,11 @@
                       <li><a class="dropdown-item" href="'.base_url().'compras">Compras por confirmar</a></li>
                       <li><a class="dropdown-item" href="'.base_url().'compras/frm_recompra_binaria_admin">Recomprar (Admin)</a></li>
                       <li><a class="dropdown-item" href="'.base_url().'compras/pago_bono_constante">Pago de bonos constantes</a></li>
-                      <li><a class="dropdown-item" href="'.base_url().'testimonios/nuevo_testimonio">Ingreso de Testimonios</a></li>
-                      <li><a class="dropdown-item" href="'.base_url().'respalda/exportarTablas">Exportar DB</a></li>';
+                      <li><a class="dropdown-item" href="'.base_url().'testimonios/nuevo_testimonio">Ingreso de Testimonios</a></li>';
+                //echo '<li><a class="dropdown-item" href="'.base_url().'respalda/exportarTablas">Exportar DB</a></li>';
                       //<li><a class="dropdown-item" href="'.base_url().'inicio/completa_linea">Añade línea códigos</a></li>';
                       //echo '<li><a class="dropdown-item" href="#">Registro de Pagos</a></li>';
-                echo '<li><a class="dropdown-item" href="'.base_url().'socios/form_elimina_socio">Eliminar socio</a></li>';
+                //echo '<li><a class="dropdown-item" href="'.base_url().'socios/form_elimina_socio">Eliminar socio</a></li>';
                       // echo '<li><a class="dropdown-item" href="'.base_url().'testimonios/editar_testimonio">Editar Testimonio</a></li>';
                 echo '</ul></li>';
             }
