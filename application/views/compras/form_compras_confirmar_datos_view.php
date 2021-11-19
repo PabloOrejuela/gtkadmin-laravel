@@ -44,7 +44,7 @@
         </div>
         <div class="col-md-12" id="grid_form">
             <div class="col-md-1">
-                <button type="submit" class="btn btn-default">Enviar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
             <div class="col-md-3">
             </div>

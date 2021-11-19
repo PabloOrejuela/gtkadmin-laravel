@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" 
           aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +13,7 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                       id="navbarDarkDropdownMenuLink" role="button" 
                       data-bs-toggle="dropdown" aria-expanded="false">Gestión de Distribuidores </a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDarkDropdownMenuLink">';
+                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">';
                         echo '<li><a class="dropdown-item" href="'.base_url().'reportes/red_mis_codigos">Mis Códigos</a></li>';
                         echo '<li><a class="dropdown-item" href="'.base_url().'reportes/red_mis_codigos_directos">Mi Organización</a></li>';
                         echo '<li><a class="dropdown-item" href="'.base_url().'reportes/bono_constante">Bono constante del mes</a></li>';
@@ -27,7 +27,7 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                     id="navbarDarkDropdownMenuLink" role="button" 
                     data-bs-toggle="dropdown" aria-expanded="false">Reportes</a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDarkDropdownMenuLink">';
+                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">';
 
                       if ($per['administracion'] == 1) {
 
@@ -46,7 +46,7 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                     id="navbarDarkDropdownMenuLink" role="button" 
                     data-bs-toggle="dropdown" aria-expanded="false">Administración</a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="'.base_url().'compras">Compras por confirmar</a></li>
                       <li><a class="dropdown-item" href="'.base_url().'compras/frm_recompra_binaria_admin">Recomprar (Admin)</a></li>
                       <li><a class="dropdown-item" href="'.base_url().'compras/pago_bono_constante">Pago de bonos constantes</a></li>
@@ -63,7 +63,7 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                     id="navbarDarkDropdownMenuLink" role="button" 
                     data-bs-toggle="dropdown" aria-expanded="false">Agenda</a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="'.base_url().'evento/nuevo_evento">Ingreso de Evento</a></li>
                       <li><a class="dropdown-item" href="'.base_url().'inicio/edita_evento">Edición de Evento</a></li>
                     </ul>
@@ -74,7 +74,7 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                     id="navbarDarkDropdownMenuLink" role="button" 
                     data-bs-toggle="dropdown" aria-expanded="false">Ayuda <strong>?</strong></a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-secondary" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="https://youtu.be/V5Fe566NNDM" target="_blank">Como inscribir un Nuevo Socio</a></li>
                       <li><a class="dropdown-item" href="https://youtu.be/XdDyKmova00" target="_blank">Como realizar una compra</a></li>
                       <li><a class="dropdown-item" href="https://youtu.be/jsPwI74P_II" target="_blank">Cómo ingresar al Backoffice</a></li>
