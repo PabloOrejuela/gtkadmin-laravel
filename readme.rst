@@ -68,3 +68,11 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+VERSION: Beta Beta 0.1.3.1
+FECHA: 2021-11-19
+
+- El menú tenía un problema, el hover de los submenús no dejaba ver el texto de los submenús
+- Se eliminó también dos archivos CSS de jquery theme, estos causaban el problema del submenú
+- Se hizo una pequeña corrección en el formulario de Confirmación de Compras
+
