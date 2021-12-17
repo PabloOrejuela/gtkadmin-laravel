@@ -82,7 +82,8 @@
                             echo '<td>'.anchor('compras/elimina_compra/'.$value['idcompras'], '<span style="color:red;"><i class="fa fa-ban" aria-hidden="true"> CANCELAR</i>', 'attributes').'</span></td>';
                             echo '</tr>';
                         }
-                    }else if(isset($rows_binaria) && $rows_binaria != null && $rows_binaria != 0){
+                    }
+					if(isset($rows_binaria) && $rows_binaria != null && $rows_binaria != 0){
                         foreach ($rows_binaria as $value) {
                             echo '<tr>';
                             echo '<td>'.$value['codigo_socio_binario'].'</td>';
@@ -97,13 +98,32 @@
                             echo '<td>'.anchor('compras/elimina_compra_binaria/'.$value['idcompras_binario'], '<span style="color:red;"><i class="fa fa-ban" aria-hidden="true"> CANCELAR</i>', 'attributes').'</span></td>';
                             echo '</tr>';
                         }
-                    }else{
-                        echo '<tr>';
-                          echo '<td>NO HAY COMPRAS POR CONFIRMAR</td>';
-                          echo '</tr>';
+                    }if(isset($rows_consumidor) && $rows_consumidor != null && $rows_consumidor != 0){
+                        foreach ($rows_consumidor as $value) {
+                            echo '<tr>';
+                            echo '<td>N/A</td>';
+                            echo '<td>'.$value['nombres'].' '.$value['apellidos'].'</td>';
+                            echo '<td>'.$value['cedula'].'</td>';
+                            echo '<td>'.$value['provincia'].'</td>';
+                            echo '<td>'.$value['ciudad'].'</td>';
+                            echo '<td style="text-align:right;">$'.number_format(($value['paquete']), 2).'</td>';
+                            echo '<td>'.$value['fecha'].'</td>';
+                            echo '<td>CONSUMIDOR</td>';
+                            echo '<td>'.anchor('compras/confirma_compra_externa/'.$value['idcompras_consumo'], '<i class="fa fa-check-circle-o" aria-hidden="true"> CONFIRMAR</i>', 'attributes').'</td>';
+                            echo '<td>'.anchor('compras/elimina_compra_externa/'.$value['idcompras_consumo'], '<span style="color:red;"><i class="fa fa-ban" aria-hidden="true"> CANCELAR</i>', 'attributes').'</span></td>';
+                            echo '</tr>';
+                        }
                     }
-                ?>
+
+					if (!isset($result) || $result == NULL) {
+						//No muestro nada
+					}elseif (isset($result) && $result == 0) {
+						echo '<tr><td>RESULTADO: </td><td colspan="5"><span id="resultado">Ha habido un error en la confirmación</span></td></tr>';
+					}elseif (isset($result) && $result == 1) {
+						echo '<tr><td>RESULTADO: </td><td colspan="5"><span id="resultado">La confirmación de la compra ha sido existosa</span></td></tr>';
+					}
+					?>
             </tbody>
         </table>
-	</div><!-- /.col-nd-12 -->
+	</div>
 </div>

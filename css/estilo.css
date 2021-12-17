@@ -74,6 +74,12 @@ h4 a {
 	margin-bottom: 20px;
 }
 
+#resultado {
+	color: red;
+	font-weight: bold;
+	font-size:1.2em;
+}
+
 #table_resumen {
 	border: 1px solid #999696;
 	font-size: 12px;

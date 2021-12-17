@@ -63,11 +63,11 @@ class Compras extends CI_Controller {
 	 * @return void
 	 * @author
 	 **/
-	function ver_lista_compras(){
+	function ver_lista_compras($result = NULL){
 	$rol =$this->session->userdata('rol');
         $data['per'] = $this->acl_model->_extraePermisos($rol);
         $is_logged = $this->session->userdata('is_logged_in');
-        $data['result'] = 0;
+        $data['result'] = $result;
         if (isset($is_logged) == true || isset($is_logged) == 1) {
 
             //Capturo los datos
@@ -77,8 +77,8 @@ class Compras extends CI_Controller {
 
             //Traigo las filas
             $data['rows'] = $this->compras_model->_get_compras_confirmar_uninivel($data);
+			$data['rows_consumidor'] = $this->compras_model->_get_compras_confirmar_consumidor($data);
             $data['rows_binaria'] = $this->compras_model->_get_compras_confirmar_binaria($data);
-
             $data['provincias'] = $this->administracion_model->_get_provincias();
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
@@ -102,32 +102,43 @@ class Compras extends CI_Controller {
         */
 		$r = $this->compras_model->_confirmar_compra($idcompras);
 
-		if ($r) {
-			$this->ver_lista_compras();
-		}else{
-			$this->ver_lista_compras();
-		}
+		$this->ver_lista_compras($r);
 	}
 
     /**
      * Confirma los pagos de las compras binarias
      *
      * @return void
-     * @author
+     * @author Pablo Orejuela
      **/
     function confirma_compra_binaria($idcompras){
         /*
             Aqui se confirma la compra luego de recibir el pago
         */
-//  PABLO:: Al verificar la compra si es la matriz binaria se debe realizar el calculo del bono
         $r = $this->compras_model->_confirmar_compra_binaria($idcompras);
 
-        if ($r) {
-            $this->ver_lista_compras();
-        }else{
-            $this->ver_lista_compras();
-        }
+        $this->ver_lista_compras($r);
+
     }
+
+	/**
+     * Confirma los pagos de las compras externas
+     *
+     * @return void
+     * @author Pablo Orejuela
+	 * @fecha: 17-12-2021
+     **/
+    function confirma_compra_externa($id){
+        /*
+            Aqui se confirma la compra luego de recibir el pago
+        */
+        $r = $this->compras_model->_confirmar_compra_externa($id);
+
+		$this->ver_lista_compras($r);
+        
+
+    }
+    
 
     /**
      * undocumented function
@@ -142,11 +153,26 @@ class Compras extends CI_Controller {
 
         $r = $this->compras_model->_eliminar_compra($idcompras);
 
-        if ($r) {
-            $this->ver_lista_compras();
-        }else{
-            $this->ver_lista_compras();
-        }
+        $this->ver_lista_compras($r);
+
+    }
+
+	/**
+     * Elimina una compra externa
+     *
+     * @return void
+     * @author Pablo Orejuela
+	 * @fecha: 17-12-2021
+     **/
+    function elimina_compra_externa($id){
+        /*
+            Aqui se cancela y se elimina la compra en caso de no recibir el pago o estar algo mal
+        */
+
+        $r = $this->compras_model->_eliminar_compra_externa($id);
+
+        $this->ver_lista_compras($r);
+
     }
 
     /**

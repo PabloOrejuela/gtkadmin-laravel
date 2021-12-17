@@ -42,6 +42,41 @@ class Compras_model extends CI_Model {
 	}
 
 	/**
+	 * Devuelve las compras sin confirmar externas de consumidores
+	 *
+	 * @return void
+	 * @author Pablo Orejuela
+	 * @fecha: 17-12-2021
+	 **/
+	function _get_compras_confirmar_consumidor($data){
+
+		//COMPRAS UNINIVEL
+		$this->db->select('*');
+		$this->db->where('pago', 0);
+		if ($data['idciudad'] != NULL) {
+			$this->db->where('socios.idciudad', $data['idciudad']);
+		}
+		if ($data['cedula'] != NULL) {
+			$this->db->like('socios.cedula', $data['cedula']);
+		}
+		//Paquete de Uninivel es siempre el 4
+		$this->db->join('paquetes', 'compras_consumidores.idpaquete = paquetes.idpaquete');
+		$this->db->join('socios', 'socios.idsocio = compras_consumidores.idsocio');
+		$this->db->join('ciudad', 'socios.idciudad=ciudad.idciudad');
+		$this->db->join('provincias', 'ciudad.id_provincia=provincias.idprovincia');
+		$q = $this->db->get('compras_consumidores');
+		//echo $this->db->last_query();
+		if ($q->num_rows() > 0) {
+			foreach ($q->result_array() as $r) {
+				$filas[] = $r;
+			}
+			return $filas;
+		}else{
+			return NULL;
+		}
+}
+
+	/**
 	 * Devuelve las compras sin confirmar uninivel
 	 *
 	 * @return void
@@ -122,6 +157,26 @@ class Compras_model extends CI_Model {
 	 * @return void
 	 * @author
 	 **/
+	function _confirmar_compra_externa($id){
+		$this->db->trans_start();
+		$this->db->set('pago', 1);
+		$this->db->where('idcompras_consumo', $id);
+		$this->db->update('compras_consumidores');
+		$this->db->trans_complete();
+        if ($this->db->trans_status() == FALSE) {
+        	$this->db->trans_rollback();
+            return 0;
+        } else {
+            return 1;
+        }
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 * @author
+	 **/
 	function _confirmar_compra_binaria_principal($idcodigo_socio_binario){
 		$mes = date('m');
 		$this->db->trans_start();
@@ -148,6 +203,26 @@ class Compras_model extends CI_Model {
 		$this->db->trans_start();
 		$this->db->where('idcompras', $idcompras);
 		$this->db->delete('compras');
+		$this->db->trans_complete();
+        if ($this->db->trans_status() == FALSE) {
+        	$this->db->trans_rollback();
+            return 0;
+        } else {
+            return 1;
+        }
+	}
+
+	/**
+	 * Elimina una compra externa
+	 *
+	 * @return void
+	 * @author Pablo Orejuela
+	 * @fecha 17-12-2021
+	 **/
+	function _eliminar_compra_externa($id){
+		$this->db->trans_start();
+		$this->db->where('idcompras_consumo', $id);
+		$this->db->delete('compras_consumidores');
 		$this->db->trans_complete();
         if ($this->db->trans_status() == FALSE) {
         	$this->db->trans_rollback();

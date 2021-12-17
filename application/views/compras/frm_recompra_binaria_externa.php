@@ -3,8 +3,8 @@
         text-transform: uppercase;
     }
 </style>
-<div class="row-fluid">
-    <div class="col-md-12">
+<div class="row-fluid" id="contenido">
+    <div class="container-fluid" id="contenido">
     	<h3>Compra de Producto</h3>
         <h5>Usuarios no registrados</h5>
         <table class="table table-bordered" style="width: 60%;border: 0px solid;">
@@ -46,9 +46,15 @@
             echo form_close();
             if (isset($exito)) {
                 if ($exito == 0) {
-                    echo '<div><span style="color:#CA2222;font-size: 1.5em;margin-top: 20px;">Hubo un problema y no se pudo procesar la información, intente nuevamente o contacte al Administrador</span></div>';
+                    echo '<div>
+							<span style="color:#CA2222;font-size: 1.5em;margin-top: 20px;">
+								Hubo un problema y no se pudo procesar la información, intente nuevamente o contacte al Administrador
+							</span>
+						</div>';
                 }else{
-                    echo '<div><span style="color:#CA2222;font-size: 1.5em;margin-top: 20px;">La compra se ha registrado con éxito</span></div>';
+                    echo '<div>
+							<span style="color:#CA2222;font-size: 1.5em;margin-top: 20px;">La compra se ha registrado con éxito</span>
+						</div>';
                 }
             }
         
