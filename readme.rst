@@ -1,7 +1,5 @@
-VERSION: Beta 0.1.3.
-FECHA: 2021-12-16
+VERSION: Beta 0.1.3.3
+FECHA: 2021-12-17
 
-- Corregido bug que no dejaba registrar socio nuevo UNINIVEL
-- Corregido y actualizado el código de calcular.js
-- Eliminado todo el código javascript innecesario del formulario de registro de socio nuevo
+- Botón "ver mis directos" del formulario de inscripción S/N solo aparece cuando se selecciona la red binaria
 

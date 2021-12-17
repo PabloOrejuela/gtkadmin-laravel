@@ -15,7 +15,7 @@
 </style>
 
 <div class="container-fluid">
-	<div class="row" id="container" style="margin-left: 7px;">
+	<div class="row" id="container" style="margin-left: 7px;margin-bottom: 100px;">
 		<h2>Formulario de Inscripción</h2>
 		<div>
 		<?php echo form_open('inicio/recibe_datos_frm_registro');  ?>
@@ -173,8 +173,11 @@
 		        		</td>
 		        	</tr>
 		        	<tr id="tr_1" style="display:none;">
-		        		<td><label style="text-align: center;">Ubicación en la red binaria</label></td>
-						<td><input type="text" name="ubicacion" maxlength="5" placeholder="posicion" value="0" class="form-control" id="txt_ubicacion" onkeypress="return valida(event)"></td>
+		        		<td></td>
+						<td>
+						<label style="color: red;text-align:right; font-weight: bold;">Ubicación en la red binaria</label>
+							<input type="text" name="ubicacion" maxlength="5" placeholder="posicion" value="0" class="form-control" id="txt_ubicacion" onkeypress="return valida(event)">
+						</td>
 		        	</tr>
 		        	<tr>
 		        		<td>
@@ -190,7 +193,7 @@
 			<input type="hidden" name="patrocinador_uninivel" value="<?php echo $idcodigo_uninivel; ?>">
 	        <input type="hidden" name="formulario_id" value="1">
 	        <?php echo form_close();?>
-			<div>
+			<div id="tr_2" style="display:none;">
 				<?php
 				//Permite ver la ubicación
 				//PABLO: hacer que esta función lleve a un gráfico que no muestre la info y nos permita ubicar al nuevo socio
