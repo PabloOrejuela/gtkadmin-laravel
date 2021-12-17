@@ -1268,6 +1268,7 @@ class Reportes extends CI_Controller {
         $is_logged = $this->session->userdata('is_logged_in');
         if (isset($is_logged) == true || isset($is_logged) == 1) {
             //$idcodigo = $this->input->post('id_codigo');
+			//PABLO: cuando es un código uninivel debe salir una lista de los patroicinados
             $data['socio']=$this->administracion_model->_get_array_socio_by_id($id_socio);
             $data['codigos_uninivel']=$this->administracion_model->_get_codigos_by_socio($id_socio);
             $data['codigos_binarios']=$this->administracion_model->_get_codigos_binarios_by_socio($id_socio);

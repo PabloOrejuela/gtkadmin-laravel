@@ -424,9 +424,10 @@ class Inicio extends CI_Controller {
         $is_logged = $this->session->userdata('is_logged_in');
         $data['result'] = 0;
         if (isset($is_logged) || $is_logged == true || isset($is_logged) == 1 || $is_logged != false || $is_logged != 0) {
-            $data['idcodigo_socio_binario'] = $this->administracion_model->_get_codigo_binario_by_cedula($this->session->userdata('user'));
+            $data['idcodigo_binario'] = $this->administracion_model->_get_codigo_binario_by_cedula($this->session->userdata('user'));
+			$data['idcodigo_uninivel'] = $this->administracion_model->_get_codigo_uninivel_by_cedula($this->session->userdata('user'));
             //$red =  $this->administracion_model->_arma_red_binaria($data['idcodigo_socio_binario']);
-            
+			// var_dump($data['idcodigo_uninivel']);
             $data['provincias'] = $this->administracion_model->_get_provincias();
             $data['ciudades'] = $this->administracion_model->_get_ciudades();
             $data['bancos'] = $this->administracion_model->_get_bancos();
@@ -492,17 +493,40 @@ class Inicio extends CI_Controller {
       *
       * @return void
       * @author Pablo Orejuela
-      * @revisión: 
+      * @revisión: 15-12-2021
       **/
     function recibe_datos_frm_registro(){
 
-        $this->form_validation->set_rules('cedula', 'Cédula', 'is_unique[socios.cedula]');
+        //$this->form_validation->set_rules('cedula', 'Cédula', 'is_unique[socios.cedula]');
         $this->form_validation->set_rules('ubicacion', 'Ubicación', 'required');
         $this->form_validation->set_message('is_unique', '<span style="color:red;font-weight:bold;font-size:1.2em;">ERROR: Ya existe un distribuidor registrado con este número de cédula</span>');
         $this->form_validation->set_message('required', '<span style="color:red;font-weight:bold;font-size:1.2em;">ERROR: Este campo es obligatorio</span>');
         if ($this->form_validation->run() == FALSE){
 			$this->formulario_inscripcion_miembro();
         }else{
+
+			//Creo el código uninivel del patrocinador si es que no lo tiene
+            $data['idmatrices'] = $this->input->post('idmatrices');
+			//Establesco el rango dependiendo de la matriz
+            $data['idrango'] = 1;
+
+			if ($data['idmatrices'] == 3) {
+				//Patrocinador UNINIVEL
+				$data['patrocinador_uninivel'] =  $this->input->post('patrocinador_uninivel');
+				if (!isset($data['patrocinador_uninivel']) || $data['patrocinador_uninivel'] == NULL || $data['patrocinador_uninivel'] == '') {
+					//El Patrocinador no tiene código binario asi que le creamos uno
+					$data['socio'] = $this->administracion_model->_get_array_socio_by_cedula($this->session->userdata('user'));
+					$data['nombres'] = $data['socio']['nombres'];
+					$data['apellidos'] = $data['socio']['apellidos'];
+					$data['patrocinador'] = 1;
+					$data['idsocio'] = $data['socio']['id'];
+					$data['cod_provincia'] = $this->administracion_model->_get_cod_provincia($data['socio']['idprovincia']);
+					$data['ubicacion'] = $this->administracion_model->_get_last_id('codigo_socio') + 1;
+					$data['cod_socio'] = $this->administracion_model->_calcula_codigo($data);
+					$data['patrocinador_uninivel'] = $this->administracion_model->_inserta_codigo($data);
+				}
+
+			}
 
             $data['nombres'] = strtoupper($this->input->post('nombres'));
             $data['apellidos'] = strtoupper($this->input->post('apellidos'));
@@ -524,19 +548,16 @@ class Inicio extends CI_Controller {
             $data['idrol'] = 2; //Rol de socio normal
 
             //info banco
-            //pablo hacer un if en caso de que llegue vacío
+            //PABLO: 15-12-2021 hacer un if en caso de que llegue vacío
+			//PABLO: 15-12-2021 hacer verifique si ya existe el usuario y borrar todo el javascript que está de mas
+
             $data['num_cta'] = '000000000'; //$this->input->post('num_cta');
             $data['idtipo_cuenta'] = 1; //$this->input->post('tipo_cuenta');
             $data['idbanco'] = 163;  //$this->input->post('banco');
 
-            //Patrocinador
+            //Patrocinador Binario
             $data['patrocinador'] =  $this->input->post('patrocinador');
-
-            //datos primera compra
-            $data['idmatrices'] = $this->input->post('idmatrices');
-
-            //Establesco el rango dependiendo de la matriz
-            $data['idrango'] = 1;
+            
 
             $data['idpaquete'] = $this->input->post('paquetes');
             $data['formulario_id'] = $this->input->post('formulario_id');
@@ -575,6 +596,10 @@ class Inicio extends CI_Controller {
                 $this->compras_model->_graba_primera_compra_binaria($data);
                 $this->exito_registro($data);
             }else if($data['idmatrices'] == 3){
+				$data['ubicacion'] = $this->administracion_model->_get_last_id('codigo_socio') + 1;
+				$data['cod_socio'] = $this->administracion_model->_calcula_codigo($data);
+				
+				$data['patrocinador'] = $data['patrocinador_uninivel'];
                 $data['id_codigo'] = $this->administracion_model->_inserta_codigo($data);
                 $this->compras_model->_graba_compra_primera($data);
                 $this->exito_registro($data);

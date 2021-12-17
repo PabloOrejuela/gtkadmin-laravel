@@ -300,6 +300,7 @@ class Administracion_model extends CI_Model {
                 $socio['cedula'] = $r->cedula;
                 $socio['idciudad'] = $r->idciudad;
                 $socio['idprovincia'] = $r->idprovincia;
+				$socio['provincia'] = $r->provincia;
                 $socio['direccion'] = $r->direccion;
                 $socio['apellidos'] = $r->apellidos;
                 $socio['celular'] = $r->celular;
@@ -353,12 +354,6 @@ class Administracion_model extends CI_Model {
 	function _get_array_socio_by_criterio($criterio){
 		$this->db->select('*');
 		$this->db->or_like('cedula', $criterio);
-		// $this->db->or_like('socios.nombres', $criterio);
-		// $this->db->or_like('socios.apellidos', $criterio);
-		// $this->db->or_like('codigo_socio.codigo_socio', $criterio);
-  //       $this->db->or_like('codigo_socio_binario.idcodigo_socio_binario', $criterio);
-		// $this->db->or_like('socios.idciudad', $criterio);
-		//$this->db->join('socios', 'socios.idsocio = codigo_socio.idsocio');
         $this->db->join('codigo_socio_binario', 'codigo_socio_binario.idsocio = socios.idsocio');
         // $this->db->join('codigo_socio', 'codigo_socio.idsocio = socios.idsocio');
 		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
@@ -449,6 +444,7 @@ class Administracion_model extends CI_Model {
         }
         return $socio;
 	}
+
 
     /**
      * Recibe el CI y devuelve los datos asociados al dueño de ese CI
@@ -563,6 +559,32 @@ class Administracion_model extends CI_Model {
         }
     }
 
+	/**
+	 * extrae el código uninivel dado el usuario (cedula)
+	 *
+	 *
+	 * @param Type string
+	 * @return type string
+	 * @feha  15-12-2021
+	 * @autor: Pablo Orejuela
+	 **/
+
+	public function _get_codigo_uninivel_by_cedula($usuario){
+		$codigo=null;
+        $this->db->select('MIN(idcod_socio) as id');
+        $this->db->join('socios', 'socios.idsocio = codigo_socio.idsocio');
+        $this->db->where('cedula', $usuario);
+        $q = $this->db->get('codigo_socio');
+        if ($q->num_rows() > 0) {
+            foreach ($q->result() as $r) {
+                $codigo = $r->id;
+            }
+            return $codigo;
+        }else{
+            return $codigo;
+        }
+	}
+
     function _get_min_cod_binario_by_idsocio($id_socio){
         $this->db->select_min('idcodigo_socio_binario', 'min_codigo_binario');
         $this->db->where('idsocio', $id_socio);
@@ -672,6 +694,25 @@ class Administracion_model extends CI_Model {
         }
 	}
 
+	/*
+	 * Devuelve el último indice de la tabla
+	*/
+
+	function _get_last_id($table){
+		$id = 0;
+		$this->db->select_max('idcod_socio', 'id') ;
+		$q = $this->db->get($table);
+		if ($q->num_rows() > 0) {
+			foreach ($q->result() as $value) {
+				$id = $value->id;
+			}
+			return $id;
+			//return $id;
+		}else{
+			return $id;
+		}
+	}
+
 	/**
 	 * Devuelve el código binario dada la ubicación en la matriz
 	 *
@@ -700,13 +741,9 @@ class Administracion_model extends CI_Model {
         
         $cod_socio =  $data['cod_provincia'].strtoupper($prim_nombre[0]).strtoupper($prim_apellido[0]).'/'.$pri_matriz.$data['ubicacion'];
 
-        // if ($data['rama'] == 1) {
-        //     $cod_socio =  $data['cod_provincia'].strtoupper($prim_nombre[0]).strtoupper($prim_apellido[0]).'/'.$pri_matriz.(($data['padre']*2));
-        // }else if($data['rama'] == 2){
-        //     $cod_socio =  $data['cod_provincia'].strtoupper($prim_nombre[0]).strtoupper($prim_apellido[0]).'/'.$pri_matriz.(($data['padre']*2)+1);
-        // }
 		return $cod_socio;
     }
+
     
     /**
 	 * Calcula el código binario del socio conociendo la ubicación

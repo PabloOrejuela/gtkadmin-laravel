@@ -37,8 +37,8 @@ function pregunta_borrar(){
     }
 }
 
-$(document).ready(function(){
-    $("#id_provincia").change(function(){
+$(function(){
+    $("#id_provincia").on('change', function(){
         if($("#id_provincia").val() !=""){
             valor = $("#id_provincia").val();
                 $.ajax({
@@ -57,8 +57,8 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-    $("#idcod_socio").change(function(){
+$(function(){
+    $("#idcod_socio").on('change',function(){
         if($("#idcod_socio").val() !=""){
             valor = $("#idcod_socio").val();
                 $.ajax({
@@ -77,8 +77,8 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-    $("#idmatrices").change(function(){
+$(function(){
+    $("#idmatrices").on('change',function(){
         if($("#idmatrices").val() !=""){
             valor = $("#idmatrices").val();
             //console.log(valor);
@@ -95,26 +95,6 @@ $(document).ready(function(){
         }
         else{
             $("#paquetes").empty().attr("disabled","disabled");
-        }
-
-
-        if($("#patrocinador").val() !=""){
-            var valor = $("#patrocinador").val();
-            //console.log('Patrocinador: '+ valor);
-                $.ajax({
-                    type:"POST",
-                    dataType:"html",
-                    url: varjs+"inicio/mi_red_select",
-                    data:"patrocinador="+valor,
-                        success:function(msg){
-                            console.log('SI');
-                            $("#padre").empty().removeAttr("disabled").append(msg);
-                        }
-                    });
-        }
-        else{
-            console.log('NO');
-            $("#padre").empty().attr("disabled","disabled");
         }
     });
 });
