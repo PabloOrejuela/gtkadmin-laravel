@@ -1328,6 +1328,7 @@ class Procesos_model extends CI_Model {
                 $socio['socio_nuevo'] = $r->socio_nuevo;
                 $socio['idciudad'] = $r->idciudad;
                 $socio['idprovincia'] = $r->idprovincia;
+				$socio['provincia'] = $r->provincia;
                 $socio['direccion'] = $r->direccion;
                 $socio['apellidos'] = $r->apellidos;
                 $socio['celular'] = $r->celular;
@@ -1343,26 +1344,22 @@ class Procesos_model extends CI_Model {
 	}
 
 	function _get_cuentas_socio_by_idcod($idcod){
-		$fecha_actual = date('Y-m-d');
-		$dia = date('w');
-		$primer_dia_semana = date('Y-m-d', strtotime('-'.($dia+6).' day'));
-		$ultimo_dia_semana = date('Y-m-d', ($primer_dia_semana + strtotime('0 day')));
+
+		$primer_dia_semana = $this->_get_firstday_of_week();
+		$ultimo_dia_semana = $this->_get_lastday_of_week($primer_dia_semana);
 
 		$compras = 0;
-		$litros = 0;
 		$this->db->select('*');
 		$this->db->where('idcod_socio', $idcod);
 		$this->db->where('fecha >=', $primer_dia_semana);
 		$this->db->where('fecha <=', $ultimo_dia_semana);
 		$this->db->where('pago', 1);
-		// $this->db->join('codigo_socio', 'codigo_socio.idcod_socio = compras.idcod_socio');
 		$q = $this->db->get('compras');
 		//echo $this->db->last_query();
 		if ($q->num_rows() > 0) {
             foreach ($q->result() as $row) {
                 $compras += 25;
             }
-            //$litros = $this->_get_litros_paquete(4);
             return ($compras);
         }else{
         	return 0;
@@ -2117,17 +2114,17 @@ class Procesos_model extends CI_Model {
 	}
 
 	/**
-	 * undocumented function
+	 * Devuelve la cantidad de socios UNINIVEL que registró en la semana
 	 *
 	 * @return void
-	 * @author
+	 * @author Pablo Orejuela
+	 * @fecha: 21-12-2021
 	 **/
 	function _nuevos_socios_semana($idcod_socio){
-		$fecha_actual = date('Y-m-d');
-		$dia = date('w');
+
 		$socios = 0;
-		$primer_dia_semana = date('Y-m-d', strtotime('-'.($dia+6).' day'));
-		$ultimo_dia_semana = date('Y-m-d', ($primer_dia_semana + strtotime('0 day')));
+		$primer_dia_semana = $this->_get_firstday_of_week();
+		$ultimo_dia_semana = $this->_get_lastday_of_week($primer_dia_semana);
 
 		$this->db->select('idcod_socio');
 		$this->db->where('patrocinador', $idcod_socio);
@@ -2136,15 +2133,52 @@ class Procesos_model extends CI_Model {
         $q = $this->db->get('codigo_socio');
         //echo $this->db->last_query();
         if($q->num_rows() > 0){
-            foreach ($q->result() as $p) {
-                //$patrocinados_nuevos[] = $p->idcod_socio;
-                $socios += count($p->idcod_socio);
-            }
+            $socios = $q->num_rows();
             return $socios;
         }
         else{
-        	return 0;
+        	return $socios;
         }
+	}
+
+	/**
+	 * Devuelve último día de la semana
+	 *
+	 *
+	 * @param Type $date
+	 * @return type $date
+	 * @fecha 21-12-2021
+	 **/
+	public function _get_lastday_of_week($primer_dia_semana){
+		return date('Y-m-d', strtotime($primer_dia_semana. '+ 6 day'));
+	}
+
+	/**
+	 * Devuelve primer día de la semana
+	 *
+	 * @param Type $date
+	 * @return type $date
+	 * @fecha 21-12-2021
+	 **/
+	public function _get_firstday_of_week(){
+		$dia = date('w');
+		if($dia == 7){
+			$primer_dia_semana = date('Y-m-d', strtotime('- 6 day'));
+		}elseif ($dia == 6) {
+			$primer_dia_semana = date('Y-m-d', strtotime('- 5 day'));
+		}elseif ($dia == 5) {
+			$primer_dia_semana = date('Y-m-d', strtotime('- 4 day'));
+		}elseif ($dia == 4) {
+			$primer_dia_semana = date('Y-m-d', strtotime('- 3 day'));
+		}elseif ($dia == 3) {
+			$primer_dia_semana = date('Y-m-d', strtotime('- 2 day'));
+		}elseif ($dia == 2) {
+			$primer_dia_semana = date('Y-m-d', strtotime('- 1 day'));
+		}elseif ($dia == 1) {
+			$primer_dia_semana = date('Y-m-d');
+		}
+
+		return $primer_dia_semana;
 	}
 
 	/**

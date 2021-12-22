@@ -577,9 +577,7 @@ join (SELECT MAX(`fecha`) as max_fecha from `compras_binario`) m ON m.max_fecha 
 		 *	de litros extra ganados por el patrocinador
 		 *	Se utilizaba cuando habia matriz general y era cada mes
 		*/
-
-		// PABLO:  buscar la manera de que se pueda evitar que al refrescar la pag se vuelva a procesar la compra
-
+ 
 		$anio_mes_actual = date('Y-m');
 		$fecha_compra = date('Y-m-d');
 		$mes_actual = date('m');

@@ -685,7 +685,7 @@ class Reportes extends CI_Controller {
                 $leg['der'] = 0;
 
     // PABLO Revisar si hay puntos del mes anterior para poder acumularlos al siguiente mes
-    //PABLO: La triangulacion debe sumarse al total a apagar
+ 
                 $compras_socio = $this->procesos_model->_get_cuentas_socio_binario_idcod($value->idcodigo_socio_binario);
                 $compras_frontales = $this->procesos_model->_get_cuentas_frontales_binario_idcod($value->idcodigo_socio_binario);
                 $nuevos_socios_mes = $this->procesos_model->_es_patrocinador_BIR_binario($value->idcodigo_socio_binario);

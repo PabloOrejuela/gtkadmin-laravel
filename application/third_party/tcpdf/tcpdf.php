@@ -7342,7 +7342,7 @@ class TCPDF {
 	 * @since 2.3.000 (2008-03-05)
 	 */
 
-	 //PABLO Hice un cambio en esta función para que deje de dar error
+	 //NOTA: Hice un cambio en esta función para que deje de dar error
 	public function unichr($c) {
 		$c = intval($c);
 		// if (!$this->isunicode) {

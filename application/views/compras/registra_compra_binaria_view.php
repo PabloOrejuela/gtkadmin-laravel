@@ -1,6 +1,6 @@
-<div class="row-fluid">
-    <div class="col-md-12">
-    	<h3>Compra de Producto</h3>
+<div id="table_datos">
+	<div class="col-md-12">
+    	<h3>Compra de Producto - Red Binaria</h3>
         <table class="table table-responsive" style="width: 40%;">
     	<?php
     	   echo form_open('compras/graba_compras_binarias');

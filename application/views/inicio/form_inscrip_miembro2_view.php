@@ -196,8 +196,7 @@
 			<div id="tr_2" style="display:none;">
 				<?php
 				//Permite ver la ubicación
-				//PABLO: hacer que esta función lleve a un gráfico que no muestre la info y nos permita ubicar al nuevo socio
-				//PABLO hacer que este botón solo se active cuando se selecciona la red binaria
+				//PABLO: 15-12-2021 hacer que esta función lleve a un gráfico que no muestre la info y nos permita ubicar al nuevo socio
 					echo form_open('reportes/mi_red_binaria');
 					echo form_hidden('idmatrices', 2);
 					echo '<input type="hidden" name="idcodigo_socio_binario" id="id_codigo" value="'.$idcodigo_binario.'">';

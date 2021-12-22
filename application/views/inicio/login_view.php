@@ -21,7 +21,7 @@
             <input type="text" name="user" value="<?php set_value('user')?>" class="form-control">
             <label>Contraseña:</label>
             <input type="password" name="password"  class="form-control">
-            <input type="submit" value="Ingresar" class="btn btn-default" id="btn_submit">
+            <input type="submit" value="Ingresar" class="btn btn-secondary" id="btn_submit">
             <?php echo form_close();?>
         </div>
         <div class="col-md-4" id="form_login">

@@ -129,7 +129,7 @@
 		//fila 2
 		if ($idmatrices == 3) {
       //MAtris UNINIVEL
-      echo '	</tbody></table><br><table class="table table-responsive" id="table_resumen">';
+      echo '	</tbody></table><br><table class="table table-responsive table-bordered" id="table_datos">';
       echo '<thead>
           <tr>
               <th id="td_resumen">Litros por Rango</th>
@@ -190,7 +190,7 @@
   echo '<div style="margin-left:20px;">';
           echo form_open('reportes/print_historico_binario');
           echo form_hidden('idcod_socio', $idcod_socio);
-          echo '<a href="print_historico_binario/'.$idcod_socio.'" type="submit" class="btn btn-default" value="print" target="_blank">Ver resumen histórico</a>';
+          echo '<a href="print_historico_binario/'.$idcod_socio.'" type="submit" class="btn btn-secondary" value="print" target="_blank">Ver resumen histórico</a>';
           echo form_close();
           echo '<div>';
 ?>

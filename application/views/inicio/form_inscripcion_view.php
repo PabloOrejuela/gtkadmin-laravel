@@ -399,9 +399,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Patrocinadores encontrados</h4>
-        <?php
-        // PABLO: poner en el modal de que matriz pertenece cada codigo
-        ?>
+
       </div>
       <div class="modal-body">
         <table class="table table-responisve" style="width: 100%">

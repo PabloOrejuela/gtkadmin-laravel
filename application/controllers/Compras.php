@@ -213,7 +213,7 @@ class Compras extends CI_Controller {
             $data['paquetes'] = $this->compras_model->_obten_paquetes(3);
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
-            $data['main_content']='registra_compra_view';
+            $data['main_content']='compras/registra_compra_view';
             $this->load->view('includes/template', $data);
         }
         else{
