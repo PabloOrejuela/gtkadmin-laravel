@@ -24,31 +24,26 @@
         });
     })
 </script>
-<div class="row-fluid">
+<div id="table_datos">
     <div class="col-md-12">
     	<caption><h4>Mis Socios Directos Uninivel: <?php echo '<strong>'.$socio['nombres'].' '.$socio['apellidos'].'</strong>'; ?></h4></caption>
     	<?php
-            //var_dump($patrocinados);
-    		$num = count($patrocinados);
-    		$width = 100/($num+1);
-    		$size = 80;
-    		echo '<table class="table_middle" style="width:auto">';
-    		echo '<tr><td colspan="'.$num.'" style="width:50px;text-align:center;" class="td" id="'.$socio['id'].'"><img src="../images/person.png" width="'.$size.'px" id="'.$socio['id'].'">';
-            echo '<input type="hidden" id="nombre_'.$socio['id'].'" value="'.$socio['nombres'].'" />';
-            echo '<input type="hidden" id="cedula_'.$socio['id'].'" value="'.$socio['cedula'].'" />';
-            echo '<input type="hidden" id="cedula_'.$socio['id'].'" value="'.$socio['cedula'].'" />';
-            echo '<input type="hidden" id="nivel_'.$socio['id'].'" value="'.$socio['rango'].'" />';
-            echo '</td></tr><tr>';
-    		if ($patrocinados != 0 && $patrocinados != NULL) {
+
+    		echo '<table class="table table-bordered " style="width:auto"><tr>';
+    		if ($patrocinados != 0 || $patrocinados != NULL) {
+				$num = count($patrocinados);
+				$width = 100/($num+1);
+    			$size = 80;
                 foreach ($patrocinados as $key => $value) {
-                    echo '<td style="width:50px;" id="id_'.$value->idcod_socio.'" class="td">
-                        <img src="../images/person_blue_center.png" width="'.($size-5).'px" id="'.$value->idcod_socio.'">';
-                    echo '<input type="hidden" id="nombre_'.$value->idcod_socio.'" value="'.$value->nombres.'" />';
-                    echo '<input type="hidden" id="cedula_'.$value->idcod_socio.'" value="'.$value->cedula.'" />';
-                    echo '<input type="hidden" id="nivel_'.$value->idcod_socio.'" value="'.$value->rango.'" /></td>';
+					echo '<td>'.$value->idcod_socio.'</td>';
+                    echo '<td>'.$value->nombres.'</td>';
+					echo '<td>'.$value->apellidos.'</td>';
+					echo '<td>'.$value->cedula.'</td>';
+					echo '<td>'.$value->rango.'</td>';
                 }
-            }
-    		echo '<td style="width:'.$width.'px;text-align:left;"><img src="../images/none_center.png" width="'.$size.'px"></td>';
+            }else{
+				echo '<table class="table_middle" style="width:auto"><tr><td>No tiene distribuidores bajo su red</td></tr>';
+			}
     		echo '</tr></table>';
     	?>
 

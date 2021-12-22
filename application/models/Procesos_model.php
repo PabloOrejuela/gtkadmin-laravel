@@ -2298,7 +2298,7 @@ class Procesos_model extends CI_Model {
             return $patro;
         }
         else{
-        	return 0;
+        	return NULL;
         }
 	}
 
