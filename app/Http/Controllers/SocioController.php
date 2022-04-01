@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Socio;
 use Illuminate\Http\Request;
 
 class SocioController extends Controller{
@@ -11,7 +12,8 @@ class SocioController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return "Controlador de Socios";
+        $socios = Socio::orderBy('idsocio', 'desc')->paginate();
+        return view('socios.index', compact('socios'));
     }
 
     /**
@@ -20,7 +22,9 @@ class SocioController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        //
+
+        return view('socios.create');
+
     }
 
     /**
@@ -29,9 +33,11 @@ class SocioController extends Controller{
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(StoreCurso $request){
+
+        $socio = Socio::create($request->all());
+
+        return redirect()->route('socios.show', $socio);
     }
 
     /**
@@ -40,9 +46,9 @@ class SocioController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Socio $socio){
+
+        return view('socios.show', ['socio' => $socio]);
     }
 
     /**
@@ -51,9 +57,8 @@ class SocioController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Socio $socio){
+        return  view('socios.edit', compact('socio'));
     }
 
     /**
@@ -63,9 +68,18 @@ class SocioController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, Socio $socio){
+
+        //validacion
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'cedula' => 'required'
+        ]);
+
+        $socio->update($request->all());
+
+        return view('socios.show', ['socio' => $socio]);
     }
 
     /**
@@ -74,8 +88,7 @@ class SocioController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy(Socio $socio){
         //
     }
 }

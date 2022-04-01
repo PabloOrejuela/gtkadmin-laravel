@@ -15,9 +15,9 @@
                       Socios
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="{{route('socio.index')}}" class="{{request()->routeIs('socios.*') ? 'active' : ''}}">Gestión de Socios</a></li>
+                      <li><a class="dropdown-item" href="{{route('socios.index')}}" class="{{request()->routeIs('socios.*') ? 'active' : ''}}">Gestión de Socios</a></li>
                       <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="{{route('socio.crear')}}" class="{{request()->routeIs('socios.*') ? 'active' : ''}}">Registrar nuevo Socio</a></li>
+                      <li><a class="dropdown-item" href="{{route('socios.registrar')}}" class="{{request()->routeIs('socios.*') ? 'active' : ''}}">Registrar nuevo Socio</a></li>
                     </ul>
                 </li>
               <li class="nav-item dropdown">

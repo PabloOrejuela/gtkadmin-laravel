@@ -17,5 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::resource('socios', SocioController::class);
+
+Route::controller(SocioController::class)->group(function(){
+    Route::get('socios', 'index')->name('socios.index');
+    Route::get('socios/registrar', 'create')->name('socios.registrar');
+    Route::get('socios/guardar', 'store')->name('socios.store');
+    Route::get('socios/mostrar', 'show')->name('socios.show');
+});
+
 Route::get('/reportes', [ReporteController::class, 'index'])->name('reporte.index');

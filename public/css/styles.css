@@ -39,6 +39,20 @@ body {
     margin-right: 200px;
 }
 
+.container {
+    margin-left: 20px;
+    margin-top: 20px;
+    border: none;
+}
+
+.button {
+
+    padding: '15px 20px';
+    border: 'none';
+    border-radius: '5px';
+    cursor: 'pointer';
+    margin-top: 5px;
+}
 
 
 
