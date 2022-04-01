@@ -1,6 +1,7 @@
 <style type="text/css">
 	input[type="text"]{
 		width: 80% !important;
+		text-transform: uppercase;
 	}
 	select{
 		width: 80% !important;
@@ -12,27 +13,20 @@
 	.info_personal_row input,select{
 		width: 80% !important;
 	}
-	
-	#nombres_socio, 
-	#input_info, 
-	#nombre_patrocinador, 
-	#ci_patroconador,
-	#telf_patrocinador,
-	#apellido_patrocinador{
-		text-transform: uppercase;
-	}
 </style>
 
-<div class="container-fluid">
-	<div class="row" id="container" style="margin-left: 7px;">
+<div class="container-fluid" id="table_datos">
+	<div class="row" id="container">
 		<h3>Formulario de Inscripción para no distribuidores</h3>
 		<div>
 		<?php echo form_open('inicio/recibe_datos_form_registro_externo'); ?>
-			<table class="table-condensed table-responisve" width="80%">
+			<table class="table-condensed table-responisve" width="90%" style="margin-bottom; 150px;">
 				<tbody>
 					<tr>
 						<td><h4>Información del nuevo distribuidor</h4></td>
-						<td><h5>*Campos en rojo son obligatorios</h5></td>
+					</tr>
+					<tr>
+						<td><h6>*Campos en rojo son obligatorios</h6></td>
 					</tr>
 					<tr id="main_info_tr">
 		        		<td>
@@ -101,6 +95,7 @@
 		        			<input type="email" class="form-control" name="email" id="email_socio" value="<?php set_value('email');?>" placeholder="jose@email.com">
 		        		</td>
 		        	</tr>
+					<tr><td><h4></h4></td><td><hr></td></tr>
 		        	<tr><td><h4>Información de la Cuenta</h4></td><td><hr></td></tr>
 		        	<tr class="info_personal_row">
 

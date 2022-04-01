@@ -7,7 +7,7 @@
             <label for="pin">ingrese el código:</label>
             <input type="text" name="pin" class="form-control" maxlength="10">
             <?php echo form_hidden('socio', $socio); ?>
-            <input type="submit" value="Enviar" class="btn btn-default" id="btn_submit">
+            <input type="submit" value="Enviar" class="btn btn-secondary" id="btn_submit">
             <?php echo form_close();?>
             <a href="#">Volver a enviar el código</a>
         </div>
