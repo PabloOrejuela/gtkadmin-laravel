@@ -930,8 +930,8 @@ class Reportes extends CI_Controller {
         if (isset($is_logged) == true || isset($is_logged) == 1) {
             $data['socio']=$this->administracion_model->_get_array_socio_by_id($id_socio);
             
-            $data['codigos_uninivel']=$this->administracion_model->_get_codigos_by_socio($id_socio);
-            $data['codigos_binarios']=$this->administracion_model->_get_codigos_binarios_by_socio($id_socio);
+            $data['codigo']=$this->administracion_model->_get_codigos_by_socio($id_socio);
+
             if ($data['codigos_binarios'] || $data['codigos_uninivel']) {
                 $data['title']='GTK Admin';
                 $data['main_content']='reportes/form_red_mis_codigos';

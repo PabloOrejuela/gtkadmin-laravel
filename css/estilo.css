@@ -123,14 +123,13 @@ p.footer {
 }
 
 #botonera {
-	background-color: #c7d1d0b7;
 	-moz-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
 	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
 	box-shadow: 0 3px 3px #003399 (158, 39, 39, 0.4);
 }
 
 button {
-	margin-top: 5px;
+	margin-top: 8px;
 }
 
 #header {
@@ -172,7 +171,6 @@ button {
 
 label {
 	margin-bottom: 0px;
-	margin-top: 10px;
 }
 
 input[type="text"] {
@@ -201,10 +199,12 @@ input[type="submit"] {
 
 #form_login {
 	border: 1px dotted #CCC5BE;
+	border-radius: 4px;
 	height: 100%;
-	margin-top: 20px;
+	margin-top: 40px;
 	padding: 15px;
 	width: 100%;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 @media only screen and (min-width: 321px) {

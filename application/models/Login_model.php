@@ -33,6 +33,7 @@ class Login_model extends CI_Model{
     }
 
     function _validate_credentials($data){
+		
         $socio=null;
         $this->db->where('cedula', $data['user']);
         $this->db->where('clave_socio', md5($data['password']));
@@ -66,10 +67,10 @@ class Login_model extends CI_Model{
      **/
     public function _set_pin($data){
     
-        $this->db->where('idsocio', $data['id']);
         $this->db->set('pin', $data['pin']);
         $this->db->set('expira', $data['expira']);
-        $this->db->update('socios');  
+		$this->db->set('idsocio', $data['id']);
+        $this->db->insert('accesos');  
     }
 
     /**
@@ -83,11 +84,11 @@ class Login_model extends CI_Model{
      **/
     function _verifica_pin($pin, $idsocio){
         $actual = strtotime(date('Y-m-d H:i:s'));
+        $estado = 0;
         
-        $this->db->select('expira, pin')->where('idsocio', $idsocio);
-        $q = $this->db->get('socios');
+        $q = $this->db->query("SELECT * FROM accesos where idsocio = $idsocio ORDER BY idacceso DESC LIMIT 1");
         if ($q->num_rows() == 1) {
-            foreach ($q->result() as $key => $value) {
+            foreach ($q->result() as $value) {
                 $expira = $value->expira;
                 
                 if ($expira && ($expira-$actual >= 0 && $pin === $value->pin)) {

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1e4d04;">
   <div class="container-fluid">
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" 
           aria-expanded="false" aria-label="Toggle navigation">
@@ -12,9 +12,8 @@
                 echo '<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" 
                       id="navbarDarkDropdownMenuLink" role="button" 
-                      data-bs-toggle="dropdown" aria-expanded="false">Gestión de Distribuidores </a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">';
-                        echo '<li><a class="dropdown-item" href="'.base_url().'reportes/red_mis_codigos">Mis Códigos</a></li>';
+                      data-bs-toggle="dropdown" aria-expanded="false" >Gestión de Distribuidores </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="background-color: #1e4d04;">';
                         echo '<li><a class="dropdown-item" href="'.base_url().'reportes/red_mis_codigos_directos">Mi Organización</a></li>';
                         echo '<li><a class="dropdown-item" href="'.base_url().'reportes/bono_constante">Bono constante del mes</a></li>';
                         echo '<li><a class="dropdown-item" href="'.base_url().'inicio/formulario_inscripcion_miembro">Inscripción S/N</a></li>';
@@ -57,17 +56,6 @@
                 //echo '<li><a class="dropdown-item" href="'.base_url().'socios/form_elimina_socio">Eliminar socio</a></li>';
                       // echo '<li><a class="dropdown-item" href="'.base_url().'testimonios/editar_testimonio">Editar Testimonio</a></li>';
                 echo '</ul></li>';
-            }
-            if ($per['administracion'] == 1) {
-                echo '<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" 
-                    id="navbarDarkDropdownMenuLink" role="button" 
-                    data-bs-toggle="dropdown" aria-expanded="false">Agenda</a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                      <li><a class="dropdown-item" href="'.base_url().'evento/nuevo_evento">Ingreso de Evento</a></li>
-                      <li><a class="dropdown-item" href="'.base_url().'inicio/edita_evento">Edición de Evento</a></li>
-                    </ul>
-                  </li>';
             }
 
             echo '<li class="nav-item dropdown">

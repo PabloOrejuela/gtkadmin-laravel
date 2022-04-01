@@ -200,25 +200,6 @@ class Inicio extends CI_Controller {
 
         if (isset($is_logged) == true || isset($is_logged) == 1) {
 
-            /*REVISO SI YA SE HA REALIZADO LA COMPRA DE LOS PRINCIPALES DE CARLOS*/
-            for($i = 1; $i <=8; $i++){
-                $r = $this->administracion_model->_get_compras_principales($i);
-                $fecha = $this->administracion_model->_get_fecha_inscripcion($i);
-                $fecha_inscripcion_dia = date('d', strtotime($fecha));
-                $fecha_mes = date('m');
-                $data['fecha_recompra'] = '2019-'.$fecha_mes.'-'.$fecha_inscripcion_dia;
-                $data['idcodigo_socio_binario'] = $i;
-                $data['idpaquete'] = 3;
-                
-                if ($r == 0) {
-                    ## Hago la recompra con paquete de 1000
-                    $this->compras_model->_graba_compra_binaria($data);
-                    $this->compras_model->_confirmar_compra_binaria_principal($data['idcodigo_socio_binario']);
-                }else{
-                    $this->compras_model->_confirmar_compra_binaria_principal($data['idcodigo_socio_binario']);
-                }
-            }
-            
             $data['version'] = $this->config->item('system_version');
             $data['title']='GTK Admin';
             $data['main_content']='inicio/inicio_view';
@@ -394,29 +375,6 @@ class Inicio extends CI_Controller {
         $this->load->view('paquetes_codigo_select',$datos);
     }
 
-
-    function formulario_inscripcion(){
-        $rol =$this->session->userdata('rol');
-        $data['per'] = $this->acl_model->_extraePermisos($rol);
-        $is_logged = $this->session->userdata('is_logged_in');
-
-        if (true) {
-            
-            $data['provincias'] = $this->administracion_model->_get_provincias();
-            $data['ciudades'] = $this->administracion_model->_get_ciudades();
-            $data['bancos'] = $this->administracion_model->_get_bancos();
-            $data['matrices'] = $this->procesos_model->_get_matrices();
-
-            $data['title'] ='GTK Admin';
-            $data['main_content'] ='inicio/form_inscripcion_view';
-            $this->load->view('includes/template_publico', $data);
-        }
-        else{
-            $this->session->sess_destroy();
-            echo $this->index();
-        }
-    }
-
     function formulario_inscripcion_miembro(){
 
         $rol =$this->session->userdata('rol');
@@ -424,16 +382,14 @@ class Inicio extends CI_Controller {
         $is_logged = $this->session->userdata('is_logged_in');
         $data['result'] = 0;
         if (isset($is_logged) || $is_logged == true || isset($is_logged) == 1 || $is_logged != false || $is_logged != 0) {
-            $data['idcodigo_binario'] = $this->administracion_model->_get_codigo_binario_by_cedula($this->session->userdata('user'));
-			$data['idcodigo_uninivel'] = $this->administracion_model->_get_codigo_uninivel_by_cedula($this->session->userdata('user'));
-            //$red =  $this->administracion_model->_arma_red_binaria($data['idcodigo_socio_binario']);
-			// var_dump($data['idcodigo_uninivel']);
+            
+			$data['socio'] = $this->administracion_model->_get_data_socio_by_id($this->session->userdata('id'));
+
             $data['provincias'] = $this->administracion_model->_get_provincias();
             $data['ciudades'] = $this->administracion_model->_get_ciudades();
             $data['bancos'] = $this->administracion_model->_get_bancos();
-            $data['matrices'] = $this->procesos_model->_get_matrices();
             $data['title'] ='GTK Admin';
-            $data['main_content'] ='inicio/form_inscrip_miembro2_view';
+            $data['main_content'] ='inicio/form_inscrip_miembro_view';
             $this->load->view('includes/template', $data);
         }
         else{

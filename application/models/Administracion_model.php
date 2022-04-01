@@ -76,21 +76,6 @@ class Administracion_model extends CI_Model {
         }
     }
 
-    function _obten_paquetes($matriz){
-        $this->db->select('*');
-        $this->db->where('idmatrices', $matriz);
-        $this->db->order_by('paquete', 'ASC');
-        $q = $this->db->get('paquetes');
-        if ($q->num_rows() > 0) {
-            foreach ($q->result_array() as $r) {
-                $paquetes[] = $r;
-            }
-            return $paquetes;
-        }else{
-                return 0;
-        }
-    }
-
     function _get_paquetes(){
         $paquetes = null;
         $this->db->select('*');
@@ -124,57 +109,6 @@ class Administracion_model extends CI_Model {
             }
     }
     
-    /**
-     * Va formando un array con 6 filas desde el codigo del patrocinador sin consultas a la
-     * base de datos
-     *
-     * @param INT
-     * @return array
-     * @autor: Pablo Orejuela
-     * @revisión 27-11-2020
-     **/
-    public function _arma_red_binaria($patrocinador){
-        //pablo Ver como hacer para que esto se haga con un bucle y no así fila por fila
-        $red[] = null;
-        $izquierda = $patrocinador*2;
-        $derecha = $izquierda+1;
-        $fila = [$izquierda, $derecha];
-        $red = $fila;
-
-        $izquierda = $izquierda*2;
-        $derecha = ($izquierda)+3;
-        $fila = null;
-        for($i=$izquierda; $i <=$derecha; $i++) { 
-            $fila[] += $i;
-        }
-        $red = array_merge($red, $fila);
-
-        $izquierda = $izquierda*2;
-        $derecha = ($izquierda)+6;
-        $fila = null;
-        for($i=$izquierda; $i <=$derecha; $i++) { 
-            $fila[] += $i;
-        }
-        $red = array_merge($red, $fila);
-
-        $izquierda = $izquierda*2;
-        $derecha = ($izquierda)+12;
-        $fila = null;
-        for($i=$izquierda; $i <=$derecha; $i++) { 
-            $fila[] += $i;
-        }
-        $red = array_merge($red, $fila);
-
-        $izquierda = $izquierda*2;
-        $derecha = ($izquierda)+24;
-        $fila = null;
-        for($i=$izquierda; $i <=$derecha; $i++) { 
-            $fila[] += $i;
-        }
-        $red = array_merge($red, $fila);
-        return $red;
-    }
-
 	function _obten_socios($data){
 		$this->db->select('*');
 		$this->db->where('idciudad', $data['id_ciudad']);
@@ -263,105 +197,22 @@ class Administracion_model extends CI_Model {
         	return 0;
         }
     }
-    
-    /**
-     * devuelve el idsocio dada la cédula
-     *
-     * @param string
-     * @return int
-     * @author Pablo Orejuela1
-     * @revision 16-11-2020
-     **/
-    function _get_idsocio_by_cedula($cedula){
-		$this->db->select('idsocio');
-		$this->db->where('cedula', $cedula);
-		$q = $this->db->get('socios');
-		if ($q->num_rows() > 0) {
-            foreach ($q->result() as $r) {
-                $socio = $r->idsocio;
-            }
-            return $socio;
-        }else{
-        	return 0;
-        }
-    }
 
-	function _get_array_socio_by_cedula($cedula){
-        $socio['id'] = 0;
-		$this->db->select('*');
-		$this->db->where('cedula', $cedula);
-		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
-		$this->db->join('provincias', 'provincias.idprovincia = ciudad.id_provincia');
-		$q = $this->db->get('socios');
-		if ($q->num_rows() > 0) {
-            foreach ($q->result() as $r) {
-                $socio['id'] = $r->idsocio;
-                $socio['nombres'] = $r->nombres;
-                $socio['cedula'] = $r->cedula;
-                $socio['idciudad'] = $r->idciudad;
-                $socio['idprovincia'] = $r->idprovincia;
-				$socio['provincia'] = $r->provincia;
-                $socio['direccion'] = $r->direccion;
-                $socio['apellidos'] = $r->apellidos;
-                $socio['celular'] = $r->celular;
-                $socio['email'] = $r->email;
-                $socio['idrol'] = $r->idrol;
-                $socio['clave_socio'] = $r->clave_socio;
-				$socio['logged_socio'] = $r->logged_socio;
-            }
-            return $socio;
-        }else{
-        	return $socio;
-        }
-	}
-
-	function _get_array_socio_by_id($id){
+	function _get_data_socio_by_id($id){
 		$this->db->select(
             'socios.idsocio,nombres,cedula,socios.idciudad,
             idprovincia,direccion,apellidos,celular,email,idrol,
-            clave_socio,logged_socio,rango,codigo_socio_binario'
+            clave_socio,logged_socio,rango,codigo_socio'
         );
 		$this->db->where('socios.idsocio', $id);
 		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
 		$this->db->join('provincias', 'provincias.idprovincia = ciudad.id_provincia');
-		$this->db->join('codigo_socio_binario', 'codigo_socio_binario.idsocio = socios.idsocio');
-		$this->db->join('rangos_binarios', 'rangos_binarios.idrango = codigo_socio_binario.idrango');
+		$this->db->join('codigo_socio', 'codigo_socio.idsocio = socios.idsocio');
+		$this->db->join('rangos', 'rangos.idrango = codigo_socio.idrango');
 		$q = $this->db->get('socios');
 		//echo $this->db->last_query().'<br>';
 		if ($q->num_rows() > 0) {
             foreach ($q->result() as $r) {
-                $socio['id'] = $r->idsocio;
-                $socio['nombres'] = $r->nombres;
-                $socio['cedula'] = $r->cedula;
-                $socio['idciudad'] = $r->idciudad;
-                $socio['idprovincia'] = $r->idprovincia;
-                $socio['direccion'] = $r->direccion;
-                $socio['apellidos'] = $r->apellidos;
-                $socio['celular'] = $r->celular;
-                $socio['email'] = $r->email;
-                $socio['idrol'] = $r->idrol;
-                $socio['clave_socio'] = $r->clave_socio;
-				$socio['logged_socio'] = $r->logged_socio;
-                $socio['rango'] = $r->rango;
-                $socio['codigo_socio_binario'] = $r->codigo_socio_binario; 
-            }
-            return $socio;
-        }else{
-        	return 0;
-        }
-	}
-
-	function _get_array_socio_by_criterio($criterio){
-		$this->db->select('*');
-		$this->db->or_like('cedula', $criterio);
-        $this->db->join('codigo_socio_binario', 'codigo_socio_binario.idsocio = socios.idsocio');
-        // $this->db->join('codigo_socio', 'codigo_socio.idsocio = socios.idsocio');
-		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
-		$this->db->join('provincias', 'provincias.idprovincia = ciudad.id_provincia');
-		$q = $this->db->get('socios');
-        //$this->db->last_query();
-		if ($q->num_rows() > 0) {
-            foreach ($q->result() as $r) {
                 $socio[] = $r;
             }
             return $socio;
@@ -370,29 +221,6 @@ class Administracion_model extends CI_Model {
         }
 	}
 
-	function _get_array_socio_by_filtros($data){
-		$this->db->select('*');
-		$this->db->like('socios.cedula', $data['criterio_socio']);
-		$this->db->like('socios.nombres', $data['criterio_socio']);
-		$this->db->like('socios.apellidos', $data['criterio_socio']);
-		$this->db->like('codigo_socio.codigo_socio', $data['codigo_socio']);
-		if($data['id_ciudad']!=null && $data['id_ciudad']!=''){
-			$this->db->where('socios.idciudad', $data['id_ciudad']);
-		}
-		$this->db->join('socios', 'socios.idsocio = codigo_socio.idsocio');
-		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
-		$this->db->join('provincias', 'provincias.idprovincia = ciudad.id_provincia');
-		$q = $this->db->get('codigo_socio');
-		//echo $this->db->last_query();
-		if ($q->num_rows() > 0) {
-            foreach ($q->result() as $r) {
-                $socio[] = $r;
-            }
-            return $socio;
-        }else{
-        	return 0;
-        }
-	}
 
 	function _get_primera_cuenta_socio($id){
 		$cuenta=null;
@@ -426,27 +254,6 @@ class Administracion_model extends CI_Model {
 
 
     /**
-     * Recibe el email y devuelve los datos asociados al dueño de ese email
-    */
-    function _get_data_usuario($data){
-        $socio[] = null; 
-        $this->db->select('*');
-        $this->db->where('email', $data['email']);
-        //$this->db->or_where('cedula', $data['cedula']); 
-        $this->db->join('codigo_socio_binario', 'codigo_socio_binario.idsocio = socios.idsocio');
-        $q = $this->db->get('socios');
-        //echo $this->db->last_query();
-        
-		if ($q->num_rows() > 0) {
-            foreach ($q->result() as $r) {
-                $socio = $r;
-            }
-        }
-        return $socio;
-	}
-
-
-    /**
      * Recibe el CI y devuelve los datos asociados al dueño de ese CI
     */
     function _get_data_usuario_ci($data){
@@ -455,7 +262,6 @@ class Administracion_model extends CI_Model {
         $this->db->where('cedula', $data['user']);
         $q = $this->db->get('socios');
         //echo $this->db->last_query();
-        
 		if ($q->num_rows() > 0) {
             foreach ($q->result() as $r) {
                 $socio = $r;
@@ -543,21 +349,7 @@ class Administracion_model extends CI_Model {
         }
     }
 
-    function _get_codigo_binario_by_cedula($cedula){
-        $codigo=null;
-        $this->db->select('MIN(idcodigo_socio_binario) as id');
-        $this->db->join('socios', 'socios.idsocio = codigo_socio_binario.idsocio');
-        $this->db->where('cedula', $cedula);
-        $q = $this->db->get('codigo_socio_binario');
-        if ($q->num_rows() > 0) {
-            foreach ($q->result() as $r) {
-                $codigo = $r->id;
-            }
-            return $codigo;
-        }else{
-            return $codigo;
-        }
-    }
+    
 
 	/**
 	 * extrae el código uninivel dado el usuario (cedula)
@@ -584,21 +376,6 @@ class Administracion_model extends CI_Model {
             return $codigo;
         }
 	}
-
-    function _get_min_cod_binario_by_idsocio($id_socio){
-        $this->db->select_min('idcodigo_socio_binario', 'min_codigo_binario');
-        $this->db->where('idsocio', $id_socio);
-        $this->db->order_by('idcodigo_socio_binario', 'asc');
-        $q = $this->db->get('codigo_socio_binario');
-        if ($q->num_rows() == 1) {
-            foreach ($q->result() as $r) {
-                $codigo = $r->min_codigo_binario;
-            }
-            return $codigo;
-        }else{
-            return 0;
-        }
-    }
 
     function _get_codigo_socio_by_id($id_socio){
         $codigos=null;
@@ -848,143 +625,6 @@ class Administracion_model extends CI_Model {
         	}
             return 1;
         }
-    }
-
-    /**
-     * Funcion que inserta un codigo binario en caso de no existir, ya no se la va a usar por que
-     * se va a hacer update en la posicion de la piramide
-     * @arg Array Codigo
-     * @return int
-     * @author Pablo Orejuela
-     **/
-    function _inserta_codigo_binario($data){
-        $this->db->trans_start();
-        $this->db->set('codigo_socio_binario', $data['cod_socio']);
-        $this->db->set('patrocinador', $data['patrocinador']);
-        $this->db->set('fecha_inscripcion', date('Y-m-d'));
-        $this->db->set('idsocio', $data['idsocio']);
-        $this->db->set('idrango', $data['idrango']);
-        $this->db->set('padre', $data['padre']);
-        $this->db->set('rama', $data['rama']);
-        $this->db->insert('codigo_socio_binario');
-        $filas = $this->db->affected_rows();
-        $this->db->trans_complete();
-        if ($this->db->trans_status() == FALSE) {
-            $this->db->trans_rollback();
-            return 0;
-        }else {
-            if ($filas>0) {
-                    $q = $this->db->query('select last_insert_id() as last;');
-                foreach ($q->result() as $row) {
-                    $lastid = $row->last;
-                    return $lastid;
-                }
-            }
-            return 1;
-        }
-    }
-
-    /**
-     * Funcion que hace updated de un codigo binario en la ubicacion
-     * @arg Array Codigo
-     * @return int
-     * @author Pablo Orejuela
-     **/
-    function _update_codigo_binario($data){
-        $this->db->trans_start();
-
-        //Traer el codigo binario del PATROCINADOR
-        $patrocinador = $this->_get_min_cod_binario_by_idsocio($data['patrocinador']);
-
-        $this->db->set('codigo_socio_binario', $data['cod_socio']);
-        $this->db->set('patrocinador', $patrocinador);
-        $this->db->set('fecha_inscripcion', date('Y-m-d'));
-        $this->db->set('idsocio', $data['idsocio']);
-        $this->db->set('idrango', $data['idrango']);
-        $this->db->where('padre', $data['padre']);
-        $this->db->where('rama', $data['rama']);
-        $this->db->update('codigo_socio_binario');
-        $this->db->trans_complete();
-        //echo $this->db->last_query();
-        if ($this->db->trans_status() == FALSE) {
-            $this->db->trans_rollback();
-            return 0;
-        }else {
-            return 1;
-        }
-    }
-
-    /**
-     * Funcion que hace update de un codigo binario en la ubicacion dada
-     * @arg Array 
-     * @return int
-     * @author Pablo Orejuela
-     **/
-    function _update_codigo_binario_ubicacion($data){
-        //echo '<pre>'.var_export($data, true).'</pre>';
-        $this->db->trans_start();
-        $this->db->set('codigo_socio_binario', $data['cod_socio']);
-        $this->db->set('patrocinador', $data['patrocinador']);
-        $this->db->set('fecha_inscripcion', date('Y-m-d'));
-        $this->db->set('idsocio', $data['idsocio']);
-        $this->db->set('idrango', 1);
-        $this->db->where('idcodigo_socio_binario', $data['ubicacion']);
-        $this->db->update('codigo_socio_binario');
-        $this->db->trans_complete();
-        //echo $this->db->last_query();
-        if ($this->db->trans_status() == FALSE) {
-            $this->db->trans_rollback();
-            return 0;
-        }else {
-            return 1;
-        }
-    }
-
-    /**
-     * Función que devuelve el codigo binario
-     * @arg Array Codigo
-     * @return int
-     * @author Pablo Orejuela
-     **/
-    function _get_codigo_binario($data){
-        $this->db->select('idcodigo_socio_binario');
-        $this->db->where('padre', $data['padre']);
-        $this->db->where('rama', $data['rama']);
-        $q = $this->db->get('codigo_socio_binario');
-        //echo $this->db->last_query();
-        if ($q->num_rows() == 1) {
-            foreach ($q->result() as $c){
-                $cod = $c->idcodigo_socio_binario;
-            }
-            return $cod;
-        }else{
-            return 0;
-        }
-    }
-
-    /**
-     * Función que devuelve el primer codigo binario libre bajo la red de carlos
-     * @arg Array Codigo
-     * @return int
-     * @author Pablo Orejuela
-     * @revision: 28-11-2020
-     **/
-    function _get_codigo_binario_libre($data){
-        
-        $cod = null;
-        $this->db->select('idcodigo_socio_binario');
-        $this->db->where('codigo_socio_binario', 'UNDEFINED');
-        $this->db->where('patrocinador', 1);
-        $this->db->or_where('patrocinador', 0);
-        $this->db->where('rama', $data['rama']);
-        $q = $this->db->get('codigo_socio_binario', 1);
-        //echo $this->db->last_query();
-        if ($q->num_rows() == 1) {
-            foreach ($q->result() as $c){
-                $cod = $c->idcodigo_socio_binario;
-            }
-        }
-        return $cod;
     }
 
 }
