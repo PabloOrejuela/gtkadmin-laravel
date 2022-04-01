@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReporteController;
-use App\Http\Controllers\SocioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,13 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
-
-Route::controller(SocioController::class)->group(function(){
-    Route::get('socios', 'index')->name('socios.index');
-    Route::get('socios/registrar', 'create')->name('socios.registrar');
-    Route::get('socios/guardar', 'store')->name('socios.store');
-    Route::get('socios/mostrar', 'show')->name('socios.show');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('/reportes', [ReporteController::class, 'index'])->name('reporte.index');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
