@@ -185,17 +185,16 @@ class Administracion_model extends CI_Model {
 	}
 
 	function _get_socio_by_cedula($cedula){
+		$socio = NULL;
 		$this->db->select('*');
 		$this->db->where('cedula', $cedula);
 		$q = $this->db->get('socios');
 		if ($q->num_rows() > 0) {
             foreach ($q->result() as $r) {
-                $socio[] = $r;
+                $socio = $r;
             }
-            return $socio;
-        }else{
-        	return 0;
         }
+		return $socio;
     }
 
 	function _get_data_socio_by_id($id){
@@ -425,43 +424,74 @@ class Administracion_model extends CI_Model {
         }
     }
 
+	/**
+	 * Registra un socio
+	 *
+	 *
+	 * @param Type array
+	 * @return type void
+	 * @throws conditon
+	 **/
+	public function _registrar_socio($socio){
+		$r = NULL;
+		$this->db->trans_start();
+		//Registro el Socio
+		$socio['idsocio'] = $this->_set_socio($socio);
+
+		//Registro los datos del banco
+		if ($socio['idsocio']) {
+			$cta = $this->_set_cta_socio($socio);
+		}
+		
+		if ($cta) {
+			$cod = $this->_set_codigo($socio);
+			$r = $cod;
+		}
+		$this->db->trans_complete();
+		if ($this->db->trans_status() == FALSE) {
+        	$this->db->trans_rollback();
+            return 0;
+        } else {
+            return $r;
+        }
+	}
+
     /*
     * Esta función hora registra a todo tipo de socios
     * 
     * Param: array
     * Return: array
     */
-    function _registrar_socio($socio){
+    function _set_socio($socio){
 
         $this->db->trans_start();
         $this->db->set('nombres',strtoupper($socio['nombres']));
         $this->db->set('apellidos',strtoupper($socio['apellidos']));
         $this->db->set('cedula',$socio['cedula']);
+		$this->db->set('clave_socio',md5($socio['cedula']));
+		$this->db->set('email',$socio['email']);
         $this->db->set('idciudad',$socio['idciudad']);
         $this->db->set('direccion',strtoupper($socio['direccion']));
         $this->db->set('celular',$socio['celular']);
-        $this->db->set('email',$socio['email']);
         $this->db->set('idrol', 3);
-        $this->db->set('clave_socio',md5($socio['cedula']));
         $this->db->set('logged_socio',0);
         $this->db->insert('socios');
-        $filas = $this->db->insert_id();
+        $id = $this->db->insert_id();
         $this->db->trans_complete();
         if ($this->db->trans_status() == FALSE) {
         	$this->db->trans_rollback();
             return 0;
         } else {
-            return $filas;
-            ;
+            return $id;
         }
     }
 
-	function _registrar_cta_socio($socio){
+	function _set_cta_socio($socio){
 		$this->db->trans_start();
-    	$this->db->set('idtipo_cuenta',$socio['idtipo_cuenta']);
-		$this->db->set('idbanco',$socio['idbanco']);
-		$this->db->set('num_cta',$socio['num_cta']);
 		$this->db->set('idsocio',$socio['idsocio']);
+		$this->db->set('num_cta',$socio['num_cta']);
+		$this->db->set('idbanco',$socio['idbanco']);
+		$this->db->set('idtipo_cuenta',$socio['idtipo_cuenta']);
 		$this->db->insert('cta_banco');
         $this->db->trans_complete();
         if ($this->db->trans_status() == FALSE) {
@@ -471,20 +501,43 @@ class Administracion_model extends CI_Model {
         }
 	}
 
+	/**
+	 * undocumented function
+	 * @arg Array Codigo
+	 * @return int
+	 * @author Pablo Orejuela
+	 **/
+	function _set_codigo($data){
+		$this->db->trans_start();
+		$this->db->set('codigo_socio', $data['cod_socio']);
+		$this->db->set('patrocinador', $data['patrocinador']);
+		$this->db->set('fecha_inscripcion', date('Y-m-d'));
+		$this->db->set('idsocio', $data['idsocio']);
+		$this->db->set('idrango', 1);
+		$this->db->insert('codigo_socio');
+		$id = $this->db->insert_id();
+		$this->db->trans_complete();
+        if ($this->db->trans_status() == FALSE) {
+        	$this->db->trans_rollback();
+            return 0;
+        }else {
+            return $id;
+        }
+    }
+
 	/*
 	 * Devuelve el último indice de la tabla
 	*/
 
 	function _get_last_id($table){
 		$id = 0;
-		$this->db->select_max('idcod_socio', 'id') ;
+		$this->db->select_max('id') ;
 		$q = $this->db->get($table);
 		if ($q->num_rows() > 0) {
 			foreach ($q->result() as $value) {
 				$id = $value->id;
 			}
 			return $id;
-			//return $id;
 		}else{
 			return $id;
 		}
@@ -507,52 +560,14 @@ class Administracion_model extends CI_Model {
 			primera letra de la matriz
 			numero de la posición dentro de la matriz
 		*/
+		$ubicacion = $this->_get_last_id('codigo_socio');
 		$prim_nombre = $data['nombres'];
 		$prim_apellido = $data['apellidos'];
-
-		if ($data['idmatrices'] == 2) {
-			$pri_matriz = 'B';
-		}else{
-			$pri_matriz = 'U';
-        }
         
-        $cod_socio =  $data['cod_provincia'].strtoupper($prim_nombre[0]).strtoupper($prim_apellido[0]).'/'.$pri_matriz.$data['ubicacion'];
+        $cod_socio =  $data['cod_provincia'].strtoupper($prim_nombre[0]).strtoupper($prim_apellido[0]).'/U-'.($ubicacion+1);
 
 		return $cod_socio;
     }
-
-    
-    /**
-	 * Calcula el código binario del socio conociendo la ubicación
-	 *
-	 * @return void
-	 * @author Pablo Orejuela
-	 **/
-	function _calcula_codigo_ubicacion($data){
-
-		/*
-			Código provincia
-			primera letra nombre
-			primera letra apellido segundo apellido
-            concatenado con "/"
-			primera letra de la matriz
-			numero de la posición dentro de la matriz
-		*/
-		$prim_nombre = $data['nombres'];
-		$prim_apellido = $data['apellidos'];
-
-		if ($data['idmatrices'] == 2) {
-			$pri_matriz = 'B';
-		}else{
-			$pri_matriz = 'U';
-		}
-        if ($data['rama'] == 1) {
-            $cod_socio =  $data['cod_provincia'].strtoupper($prim_nombre[0]).strtoupper($prim_apellido[0]).'/'.$pri_matriz.$data['ubicacion'];
-        }else if($data['rama'] == 2){
-            $cod_socio =  $data['cod_provincia'].strtoupper($prim_nombre[0]).strtoupper($prim_apellido[0]).'/'.$pri_matriz.$data['ubicacion'];
-        }
-		return $cod_socio;
-	}
 
 	/**
 	 * undocumented function
@@ -595,38 +610,6 @@ class Administracion_model extends CI_Model {
 			return 0;
 		}
 	}
-
-	/**
-	 * undocumented function
-	 * @arg Array Codigo
-	 * @return int
-	 * @author Pablo Orejuela
-	 **/
-	function _inserta_codigo($data){
-		$this->db->trans_start();
-		$this->db->set('codigo_socio', $data['cod_socio']);
-		$this->db->set('idrango', $data['idrango']);
-		$this->db->set('patrocinador', $data['patrocinador']);
-		$this->db->set('fecha_inscripcion', date('Y-m-d'));
-		$this->db->set('idsocio', $data['idsocio']);
-		$this->db->insert('codigo_socio');
-		$filas = $this->db->affected_rows();
-		$this->db->trans_complete();
-        if ($this->db->trans_status() == FALSE) {
-        	$this->db->trans_rollback();
-            return 0;
-        }else {
-        	if ($filas>0) {
-        		$q = $this->db->query('select last_insert_id() as last;');
-	            foreach ($q->result() as $row) {
-	                $lastid = $row->last;
-	                return $lastid;
-	            }
-        	}
-            return 1;
-        }
-    }
-
 }
 
 /* End of file administracion_model.php */

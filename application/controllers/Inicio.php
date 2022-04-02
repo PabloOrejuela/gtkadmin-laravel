@@ -23,10 +23,18 @@ class Inicio extends CI_Controller {
         $this->load->view('includes/template_login', $data);
     }
 
-    function exito_registro($data){
-        $data['title']='Registro de Socios';
-        $data['main_content']='publico/exito_registro_socio';
-        $this->load->view('includes/template_login', $data);
+    function exito_registro($id){
+		$rol =$this->session->userdata('rol');
+        $data['per'] = $this->acl_model->_extraePermisos($rol);
+        $is_logged = $this->session->userdata('is_logged_in');
+		if (isset($is_logged) == true || isset($is_logged) == 1) {
+			$data['id'] = $id;
+			$data['title']='Registro de Socios';
+			$data['main_content']='publico/exito_registro_socio';
+			$this->load->view('includes/template', $data);
+		}else {
+			$this->index();
+		}
     }
 
     function recuperar_password(){
@@ -320,27 +328,6 @@ class Inicio extends CI_Controller {
         }
     }
 
-    /**
-     * Función para registrar un nuevo usuario sin ingresar al sistema
-     *
-     * Sirve para cuando alguien desea realizar una inscripción pero no 
-     * pertenece ala organización o no se acuerda su código
-     * 
-     * @param Type 
-     * @return type void
-     * @throws conditon
-     * Creado por Pablo Orejuela
-     **/
-    public function form_nuevo_distribuidor_externo(){
-        $data['provincias'] = $this->administracion_model->_get_provincias();
-        $data['ciudades'] = $this->administracion_model->_get_ciudades();
-        $data['bancos'] = $this->administracion_model->_get_bancos();
-        $data['matrices'] = $this->procesos_model->_get_matrices();
-        $data['title']='GTK Admin';
-        $data['main_content']='inicio/form_nuevo_distribuidor_externo_view';
-        $this->load->view('includes/template_publico', $data);
-    }
-
     function logout(){
         $this->session->set_userdata('is_logged_in', false);
         $this->session->unset_userdata('nombre');
@@ -375,15 +362,15 @@ class Inicio extends CI_Controller {
         $this->load->view('paquetes_codigo_select',$datos);
     }
 
-    function formulario_inscripcion_miembro(){
-
-        $rol =$this->session->userdata('rol');
+    function formulario_inscripcion_miembro($mensaje = ''){
+		$data['mensaje'] = $mensaje;
+        $rol = $this->session->userdata('rol');
         $data['per'] = $this->acl_model->_extraePermisos($rol);
         $is_logged = $this->session->userdata('is_logged_in');
         $data['result'] = 0;
         if (isset($is_logged) || $is_logged == true || isset($is_logged) == 1 || $is_logged != false || $is_logged != 0) {
             
-			$data['socio'] = $this->administracion_model->_get_data_socio_by_id($this->session->userdata('id'));
+			//$data['socio'] = $this->administracion_model->_get_data_socio_by_id($this->session->userdata('id'));
 
             $data['provincias'] = $this->administracion_model->_get_provincias();
             $data['ciudades'] = $this->administracion_model->_get_ciudades();
@@ -453,278 +440,56 @@ class Inicio extends CI_Controller {
       **/
     function recibe_datos_frm_registro(){
 
-        //$this->form_validation->set_rules('cedula', 'Cédula', 'is_unique[socios.cedula]');
-        $this->form_validation->set_rules('ubicacion', 'Ubicación', 'required');
-        $this->form_validation->set_message('is_unique', '<span style="color:red;font-weight:bold;font-size:1.2em;">ERROR: Ya existe un distribuidor registrado con este número de cédula</span>');
-        $this->form_validation->set_message('required', '<span style="color:red;font-weight:bold;font-size:1.2em;">ERROR: Este campo es obligatorio</span>');
+        $this->form_validation->set_rules('cedula', 'Cédula', 'is_unique[socios.cedula]');
+        $this->form_validation->set_message('is_unique', '<span style="color:red;font-weight:bold;font-size:1em;">ERROR: Ya existe un socio registrado con este número de cédula</span>');
+        $this->form_validation->set_message('required', '<span style="color:red;font-weight:bold;font-size:1em;">ERROR: Este campo es obligatorio</span>');
         if ($this->form_validation->run() == FALSE){
 			$this->formulario_inscripcion_miembro();
         }else{
 
-			//Creo el código uninivel del patrocinador si es que no lo tiene
-            $data['idmatrices'] = $this->input->post('idmatrices');
 			//Establesco el rango dependiendo de la matriz
-            $data['idrango'] = 1;
-
-			if ($data['idmatrices'] == 3) {
-				//Patrocinador UNINIVEL
-				$data['patrocinador_uninivel'] =  $this->input->post('patrocinador_uninivel');
-				if (!isset($data['patrocinador_uninivel']) || $data['patrocinador_uninivel'] == NULL || $data['patrocinador_uninivel'] == '') {
-					//El Patrocinador no tiene código binario asi que le creamos uno
-					$data['socio'] = $this->administracion_model->_get_array_socio_by_cedula($this->session->userdata('user'));
-					$data['nombres'] = $data['socio']['nombres'];
-					$data['apellidos'] = $data['socio']['apellidos'];
-					$data['patrocinador'] = 1;
-					$data['idsocio'] = $data['socio']['id'];
-					$data['cod_provincia'] = $this->administracion_model->_get_cod_provincia($data['socio']['idprovincia']);
-					$data['ubicacion'] = $this->administracion_model->_get_last_id('codigo_socio') + 1;
-					$data['cod_socio'] = $this->administracion_model->_calcula_codigo($data);
-					$data['patrocinador_uninivel'] = $this->administracion_model->_inserta_codigo($data);
-				}
-
-			}
-
+            $data['idrango'] = 1;			}
+			$data['cedula'] = $this->input->post('cedula');
             $data['nombres'] = strtoupper($this->input->post('nombres'));
             $data['apellidos'] = strtoupper($this->input->post('apellidos'));
-            $data['cedula'] = $this->input->post('cedula');
-            $data['fecha_nacimiento'] = $this->input->post('fecha_nacimiento');
-            $originalDate = $data['fecha_nacimiento'];
-            $data['fecha_nacimiento'] = date("Y-m-d", strtotime($originalDate));
-
             $data['direccion'] = strtoupper($this->input->post('direccion'));
+			$data['idprovincia'] = $this->input->post('id_provincia');
             $data['idciudad'] = $this->input->post('ciudad');
-            $data['idprovincia'] = $this->input->post('id_provincia');
-            $data['idoperadora'] = $this->input->post('operadora');
-            if ($data['idoperadora'] == NULL) {
-                $data['idoperadora'] = 0;
-            }
-            $data['telf_casa'] = $this->input->post('telf_casa');
             $data['celular'] = $this->input->post('celular');
             $data['email'] = $this->input->post('email');
-            $data['idrol'] = 2; //Rol de socio normal
+			$data['cedula_patrocinador'] = $this->input->post('cedula_patrocinador');
+
+			//Rol de socio
+            $data['idrol'] = 3;
 
             //info banco
-            //PABLO: 15-12-2021 hacer un if en caso de que llegue vacío
-			//PABLO: 15-12-2021 hacer verifique si ya existe el usuario y borrar todo el javascript que está de mas
+			$data['num_cta'] = $this->input->post('num_cta');
 
-            $data['num_cta'] = '000000000'; //$this->input->post('num_cta');
-            $data['idtipo_cuenta'] = 1; //$this->input->post('tipo_cuenta');
-            $data['idbanco'] = 163;  //$this->input->post('banco');
+			if (!isset($data['num_cta']) || $data['num_cta'] == ''  || $data['num_cta'] == NULL) {
+				$data['num_cta'] = '000000000'; //$this->input->post('num_cta');
+				$data['idtipo_cuenta'] = 1; //$this->input->post('tipo_cuenta');
+				$data['idbanco'] = 163;  //$this->input->post('banco');
+			}else{
+				$data['num_cta'] = $this->input->post('num_cta');
+				$data['idtipo_cuenta'] = $this->input->post('tipo_cuenta');
+				$data['idbanco'] = $this->input->post('banco');
+			}
 
-            //Patrocinador Binario
-            $data['patrocinador'] =  $this->input->post('patrocinador');
-            
+			if (isset($data['cedula_patrocinador']) && $data['cedula_patrocinador'] != NULL && $data['cedula_patrocinador'] != '') {
+				$patrocinador = $this->administracion_model->_get_socio_by_cedula($data['cedula_patrocinador']);
+				$data['patrocinador'] = $patrocinador->idsocio;
+			}else{
+				//Patrocinador
+				$data['patrocinador'] = $this->session->userdata('id');
+			}
 
-            $data['idpaquete'] = $this->input->post('paquetes');
-            $data['formulario_id'] = $this->input->post('formulario_id');
-
-            //Ubicación red binaria
-            $data['ubicacion'] = $this->input->post('ubicacion');
-
-
-            //verifica si ya existe el socio
-            $data['socio'] = $this->administracion_model->_get_array_socio_by_cedula($data['cedula']);
+			$data['fecha_inscripcion'] = date('Y-m-d');
             $data['cod_provincia'] = $this->administracion_model->_get_cod_provincia($data['idprovincia']);
             $data['cod_socio'] = $this->administracion_model->_calcula_codigo($data);
 
-            $data['filas'] = 0;
-
-            if ($data['socio']['id'] == null || $data['socio']['id']==0){
-                $data['filas'] = $this->administracion_model->_registrar_socio($data);
-            }
-
-            
-            //creo el codigo del socio
-            $data['idsocio'] = $this->administracion_model->_get_idsocio_by_cedula($data['cedula']);
-            $data['cuenta'] = $this->administracion_model->_get_cuenta_socio_by_id($data['idsocio']);
-            
-            if ($data['cuenta'] == 0) {
-                $this->administracion_model->_registrar_cta_socio($data);
-            }
-
-            $data['fecha_inscripcion'] = date('Y-m-d');
-
-
-            if ($data['idmatrices'] == 2) {
-                //$data['id_codigo'] = $this->administracion_model->_inserta_codigo_binario($data);
-                $this->administracion_model->_update_codigo_binario_ubicacion($data);
-                $data['id_codigo'] = $data['ubicacion'];
-                $this->compras_model->_graba_primera_compra_binaria($data);
-                $this->exito_registro($data);
-            }else if($data['idmatrices'] == 3){
-				$data['ubicacion'] = $this->administracion_model->_get_last_id('codigo_socio') + 1;
-				$data['cod_socio'] = $this->administracion_model->_calcula_codigo($data);
-				
-				$data['patrocinador'] = $data['patrocinador_uninivel'];
-                $data['id_codigo'] = $this->administracion_model->_inserta_codigo($data);
-                $this->compras_model->_graba_compra_primera($data);
-                $this->exito_registro($data);
-            }
+			$data['result'] = $this->administracion_model->_registrar_socio($data);
+			$this->exito_registro($data['result']);
         }
-    }
-
-
-    /**
-      * Recibe los datos del formulario de inscripción externo
-      *
-      * @return void
-      * @author Pablo Orejuela
-      * Fecha: 16-11-2020
-      **/
-      function  recibe_datos_form_registro_externo(){
-
-        $this->form_validation->set_rules('cedula', 'Cedula', 'is_unique[socios.cedula]');
-        $this->form_validation->set_message('is_unique', 'Ya existe un distribuidor registrado con este número de cédula');
-        if ($this->form_validation->run() == FALSE){
-			$this->form_nuevo_distribuidor_externo();
-        }else{
-			
-            $data['nombres_socio'] = strtoupper($this->input->post('nombres'));
-            $data['apellidos_socio'] = strtoupper($this->input->post('apellidos'));
-            $data['cedula_socio'] = $this->input->post('cedula');
-
-            $data['direccion'] = strtoupper($this->input->post('direccion'));
-            $data['idciudad'] = $this->input->post('ciudad');
-            $data['idprovincia'] = $this->input->post('id_provincia');
-            $data['celular_socio'] = $this->input->post('celular');
-            $data['email_socio'] = $this->input->post('email');
-
-            //info banco
-            $data['num_cta'] = $this->input->post('num_cta');
-            $data['idtipo_cuenta'] = $this->input->post('tipo_cuenta');
-            $data['idbanco'] = $this->input->post('banco');
-
-            //Patrocinador
-            $data['cedula_patrocinador'] =  $this->input->post('cedula_patrocinador');
-            $data['nombre_patrocinador'] =  $this->input->post('nombre_patrocinador');
-            $data['apellido_patrocinador'] =  $this->input->post('apellido_patrocinador');
-            $data['telefono_patrocinador'] =  $this->input->post('telefono_patrocinador');
-            $data['email_patrocinador'] =  $this->input->post('email_patrocinador');
-
-            //datos primera compra
-            $data['idmatrices'] = $this->input->post('idmatrices'); 
-            $data['idpaquete'] =  $this->input->post('paquetes');
-
-
-            //verificar que no exista el patrocinador
-            $data['patrocinador'] = $this->administracion_model->_get_idsocio_by_cedula($data['cedula_patrocinador']);
-            $data['cod_provincia'] = $this->administracion_model->_get_cod_provincia($data['idprovincia']);
-            $data['rama'] = 2;
-            $data['padre'] = 1;
-
-            //Si el patrocinador no está registrado lo registro como consumidor
-            if ($data['patrocinador'] == null || $data['patrocinador'] == 0){
-                $data['filas'] = 0;
-
-                //El patrocinador sería Carlos
-                $data['patrocinador'] = 1;
-                $data['cedula'] = $data['cedula_patrocinador'];
-                $data['nombres'] = $data['nombre_patrocinador'];
-                $data['apellidos'] = $data['apellido_patrocinador'];
-                $data['celular'] = $data['telefono_patrocinador'];
-                $data['email'] = $data['email_patrocinador'];
-
-
-                //Registro el socio con el rol de consumidor
-                $this->administracion_model->_registrar_socio($data);
-                $data['idsocio'] = $this->administracion_model->_get_idsocio_by_cedula($data['cedula_patrocinador']);
-
-                if ($data['idpaquete'] != 0) {
-                    //Si es que ha elegido un paquete grabo la compra del consumidor para su bono
-                    $this->compras_model->_graba_compra_consumidor($data);
-                }
-
-                //NUEVO SOCIO DISTRIBUIDOR
-                //Grabo el nuevo socio bajo el patrocinador
-                $data['nombres'] = $data['nombres_socio'];
-                $data['apellidos'] = $data['apellidos_socio'];
-                $data['cedula'] = $data['cedula_socio'];
-                $data['email'] = $data['email_socio'];
-                $data['idciudad'] = $data['idciudad'];
-                $data['celular'] = $data['celular_socio'];
-                
-                //Encuentro un código libre bajo Carlos
-                $data['ubicacion'] = $this->administracion_model->_get_codigo_binario_libre($data);
-                $data['cod_socio'] = $this->administracion_model->_calcula_codigo_ubicacion($data);
-                
-                $this->_insert_socio_externo($data);
-                
-                //Grabo la primera compra dependiendo de la matriz
-                if ($data['idmatrices'] == 2) {
-                    //Binaria
-                    $data['idcompras_binario'] = $this->compras_model->_graba_primera_compra_binaria($data);
-                }else if($data['idmatrices'] == 3){
-                    //Uninivel
-
-                }else if($data['idmatrices']){
-                    //Economico
-                }
-
-
-                //Grabo el bono generado a favor del registrante
-                $this->compras_model->_graba_bono_constante($data);
-
-                $this->index();
-
-            }else{
-                //Si es que el patrocinador si estaba registrado obtengo el código del patrocinador y grabo la compra como consumidor
-
-                $data['idsocio'] = $this->administracion_model->_get_idsocio_by_cedula($data['cedula_patrocinador']);
-                
-                if ($data['idpaquete'] != 0) {
-                    //Si es que ha elegido un paquete grabo la compra del consumidor para su bono
-                    $this->compras_model->_graba_compra_consumidor($data);
-                }
-   
-                //NUEVO SOCIO DISTRIBUIDOR
-                //Grabo el nuevo socio bajo el patrocinador
-                $data['nombres'] = $data['nombres_socio'];
-                $data['apellidos'] = $data['apellidos_socio'];
-                $data['cedula'] = $data['cedula_socio'];
-                $data['email'] = $data['email_socio'];
-                $data['idciudad'] = $data['idciudad'];
-                $data['celular'] = $data['celular_socio'];
-                
-                //Encuentro un código libre bajo Carlos
-                $data['ubicacion'] = $this->administracion_model->_get_codigo_binario_libre($data);
-                $data['cod_socio'] = $this->administracion_model->_calcula_codigo_ubicacion($data);
-                
-                $this->_insert_socio_externo($data);
-                
-                 //Grabo la primera compra dependiendo de la matriz
-                 if ($data['idmatrices'] == 2) {
-                    //Binaria
-                    $data['idcompras_binario'] = $this->compras_model->_graba_primera_compra_binaria($data); 
-                }else if($data['idmatrices'] == 3){
-                    //Uninivel
-
-                }else if($data['idmatrices']){
-                    //Economico
-                }
-                
-                //Grabo el bono generado a favor del registrante
-                $this->compras_model->_graba_bono_constante($data);
-
-                $this->index();
-                
-            }
-        }
-    }
-
-    /**
-     * Recibe los datos del nuevo socio externo y los graba
-     *
-     *
-     * @param Type array[]
-     * @return type void
-     * @throws conditon
-     **/
-    public function _insert_socio_externo($data){
-        
-        $this->administracion_model->_registrar_socio($data);
-        $data['idsocio'] = $this->administracion_model->_get_idsocio_by_cedula($data['cedula']);
-        $this->administracion_model->_registrar_cta_socio($data); 
-        $this->administracion_model->_update_codigo_binario_ubicacion($data);
-    }
+    
 }
 

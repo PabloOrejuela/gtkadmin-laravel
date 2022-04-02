@@ -2,6 +2,9 @@
 	input[type="text"]{
 		width: 90% !important;
 	}
+	input[type="email"]{
+		width: 90% !important;
+	}
 	select{
 		width: 90% !important;
 	}
@@ -17,6 +20,7 @@
 <div class="container-fluid">
 	<div class="row" id="container" style="margin-left: 7px;margin-bottom: 100px;">
 		<h2>Formulario de Inscripción</h2>
+		<h3><?php echo $mensaje; ?></h3>
 		<div style="width: 100%;">
 			<?php echo form_open('inicio/recibe_datos_frm_registro');  ?>
 			<table class="table-condensed">
@@ -25,24 +29,30 @@
 					<td>
 					<div>
 						<label for="cedula" class="form-label">CI:</label>
-						<input type="text" class="form-control" id="form-control" placeholder="Cédula" name="cedula"/>
+						<input type="text" class="form-control" id="form-control" placeholder="Cédula" name="cedula" required/>
 						<?php echo form_error('cedula'); ?>
 					</div>
 					</td>
-					<td></td>
+					<td>
+					<div>
+						<label for="cedula_patrocinador" class="form-label">Patrocinador <span style="color: red;">(opcional)</span>:</label>
+						<input type="text" class="form-control" id="form-control" placeholder="Cédula patrocinador" name="cedula_patrocinador" required/>
+						<?php echo form_error('cedula'); ?>
+					</div>
+					</td>
 				</tr>
 				<tr>
 					<td>
 					<div class="mb-3">
 						<label for="nombres" class="form-label">Nombres:</label>
-						<input type="text" class="form-control" name="nombres" id="form-control" placeholder="Nombres" />
+						<input type="text" class="form-control" name="nombres" id="form-control" placeholder="Nombres" required/>
 						<?php echo form_error('nombres'); ?>
 					</div>
 					</td>
 					<td>
 					<div class="mb-3">
 						<label for="apellidos" class="form-label">Apellidos:</label>
-						<input type="text" class="form-control" name="apellidos" id="form-control" placeholder="Apellidos" />
+						<input type="text" class="form-control" name="apellidos" id="form-control" placeholder="Apellidos" required />
 						<?php echo form_error('apellidos'); ?>
 					</div>
 					</td>
@@ -92,12 +102,12 @@
 					<td>
 					<div class="mb-3">
 						<label for="celular" class="form-label">Celular:</label>
-						<input type="text" class="form-control" name="celular" id="form-control" placeholder="Celular" />
+						<input type="text" class="form-control" name="celular" id="form-control" placeholder="Celular"/>
 						<?php echo form_error('celular') ?>
 					</div>
 					</td>
 					<td>
-					<div class="mb-5">
+					<div class="mb-3">
 						<label for="email" class="form-label">Email:</label>
 						<input type="email" class="form-control" name="email" id="form-control" placeholder="Email" />
 						<?php echo form_error('email') ?>
@@ -164,19 +174,4 @@ function valida(e){
 	tecla_final = String.fromCharCode(tecla);
 	return patron.test(tecla_final);
 }
-
-$(function(){
-    $('#idmatrices').on('change', function(){
-        var disabled = $(this).val() == 2 ? true : false;
-        //console.log("Disabled: " + disabled);
-
-        if (disabled == true) {
-        	$('#tr_1').css("display", "");
-        	$('#tr_2').css("display", "");
-        }else{
-    		$('#tr_1').css("display", "none");
-    		$('#tr_2').css("display", "none");
-    	}
-    });
-});
 </script>
