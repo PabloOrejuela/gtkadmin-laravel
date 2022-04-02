@@ -13,11 +13,10 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                       id="navbarDarkDropdownMenuLink" role="button" 
                       data-bs-toggle="dropdown" aria-expanded="false" >Gestión de Distribuidores </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="background-color: #1e4d04;">';
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">';
                         echo '<li><a class="dropdown-item" href="'.base_url().'reportes/red_mis_codigos_directos">Mi Organización</a></li>';
                         echo '<li><a class="dropdown-item" href="'.base_url().'reportes/bono_constante">Bono constante del mes</a></li>';
                         echo '<li><a class="dropdown-item" href="'.base_url().'inicio/formulario_inscripcion_miembro">Inscripción S/N</a></li>';
-                        echo '<li><a class="dropdown-item" href="http://www.gtk-ecuador.com">Ir a la web</a></li>';
                 echo '</ul></li>';
             }
 
@@ -26,7 +25,7 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                     id="navbarDarkDropdownMenuLink" role="button" 
                     data-bs-toggle="dropdown" aria-expanded="false">Reportes</a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">';
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">';
 
                       if ($per['administracion'] == 1) {
 
@@ -45,7 +44,7 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                     id="navbarDarkDropdownMenuLink" role="button" 
                     data-bs-toggle="dropdown" aria-expanded="false">Administración</a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="'.base_url().'compras">Compras por confirmar</a></li>
                       <li><a class="dropdown-item" href="'.base_url().'compras/frm_recompra_binaria_admin">Recomprar (Admin)</a></li>
                       <li><a class="dropdown-item" href="'.base_url().'compras/pago_bono_constante">Pago de bonos constantes</a></li>
@@ -62,10 +61,11 @@
                     <a class="nav-link dropdown-toggle" href="#" 
                     id="navbarDarkDropdownMenuLink" role="button" 
                     data-bs-toggle="dropdown" aria-expanded="false">Ayuda <strong>?</strong></a>
-                    <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                       <li><a class="dropdown-item" href="https://youtu.be/V5Fe566NNDM" target="_blank">Como inscribir un Nuevo Socio</a></li>
                       <li><a class="dropdown-item" href="https://youtu.be/XdDyKmova00" target="_blank">Como realizar una compra</a></li>
                       <li><a class="dropdown-item" href="https://youtu.be/jsPwI74P_II" target="_blank">Cómo ingresar al Backoffice</a></li>
+											<li><a class="dropdown-item" href="http://www.gtk-ecuador.com">Ir a la web</a></li>
                     </ul>
                   </li>';
 

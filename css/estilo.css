@@ -51,7 +51,8 @@ h4 a {
 }
 
 #img_logo{
-	margin-top: 5px;
+	margin-top: 0px;
+	width: 400px;
 }
 
 #flotante {
@@ -129,6 +130,16 @@ button {
 	width: 100%;
 	margin-left: 0px;
 	margin-right: 0px;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#header-login {
+	background-image: url("../images/textura.jpg");
+	height: 120px;
+	width: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 #table_resp {
@@ -137,12 +148,12 @@ button {
 
 #logo {
 	float: left;
-	padding-left: 30px;
+	padding-left: 20px;
 	width: 50%;
 }
 
 #version {
-	font-size: 1em;
+	font-size: 0.8em;
 	float: right;
 	text-align: right;
 	padding-top: 35px;
@@ -151,7 +162,7 @@ button {
 }
 
 #user {
-	font-size: 1em;
+	font-size: 0.9em;
 	float: right;
 	font-weight: bold;
 	text-align: right;
@@ -197,10 +208,11 @@ input[type="submit"] {
 }
 
 #form_login {
-	border: 1px dotted #CCC5BE;
+	border: 1px dotted #6d6c6b;
+	background-color: #f8f6ee;
 	border-radius: 4px;
 	height: 100%;
-	margin-top: 40px;
+	margin-top: 100px;
 	padding: 15px;
 	width: 100%;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -210,6 +222,13 @@ input[type="submit"] {
 	#img_logo {
 		width: 300px;
 		padding: 10px;
+		margin-top: 5px;
+	}
+
+	#img_logo_header{
+		width: 350px;
+		padding: 10px;
+		margin-top: 15px;
 	}
 }
 
@@ -217,6 +236,12 @@ input[type="submit"] {
 	#img_logo {
 		width: 100px;
 		padding: 10px;
+	}
+
+	#img_logo_header{
+		width: 350px;
+		padding: 10px;
+		margin-top: 15px;
 	}
 }
 
@@ -392,4 +417,6 @@ select {
 	width: 800px;
 }
 
-
+.dropdown-menu{
+	background-color: #1e4d04;
+}
