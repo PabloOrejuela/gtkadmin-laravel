@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Socios_model extends CI_Model {
 
-    function _obten_socios(){
+    function _get_socios(){
 		$this->db->select('*');
 		$this->db->order_by('apellidos', 'ASC');
 		$q = $this->db->get('socios');
@@ -18,37 +18,14 @@ class Socios_model extends CI_Model {
         }
 	}
 
-
     /**
-     * Función que devuelve el codigo binario
+     * Función que devuelve el codigo del socio
      * @arg Array Codigo
      * @return int
      * @author Pablo Orejuela
      * @fecha 20-01-2021
      **/
-    function _get_codigo_binario($data){
-        $this->db->select('idcodigo_socio_binario');
-        $this->db->where('idsocio', $data['idsocio']);
-        $q = $this->db->get('codigo_socio_binario');
-        //echo $this->db->last_query();
-        if ($q->num_rows() == 1) {
-            foreach ($q->result() as $c){
-                $cod = $c->idcodigo_socio_binario;
-            }
-            return $cod;
-        }else{
-            return 0;
-        }
-    }
-
-    /**
-     * Función que devuelve el codigo uninivel
-     * @arg Array Codigo
-     * @return int
-     * @author Pablo Orejuela
-     * @fecha 20-01-2021
-     **/
-    function _get_codigo_uninivel($data){
+    function _get_codigo($data){
         $this->db->select('idcod_socio');
         $this->db->where('idsocio', $data['idsocio']);
         $q = $this->db->get('codigo_socio');
@@ -63,66 +40,6 @@ class Socios_model extends CI_Model {
         }
     }
 
-    /**
-     * Elimina las compras de la tabla compras
-     *
-     * @param Type $idcod_socio
-     * @return type void
-     * @autor Pablo Orejuela
-     **/
-    public function _elimina_compras($idcod_socio){
-        
-        $this->db->trans_start();
-        $this->db->where('idcod_socio', $idcod_socio);
-        $this->db->delete('compras');
-        $this->db->trans_complete();
-
-        if ($this->db->trans_status() === FALSE){
-            echo 'Hubo un error y no se pudo borrar el usuario';
-        }
-
-    }
-
-    /**
-     * Elimina las compras de la tabla compras binarias
-     *
-     * @param Type $idcodigo_socio_binario
-     * @return type void
-     * @autor Pablo Orejuela
-     **/
-    public function _elimina_compras_binarias($idcodigo_socio_binario){
-        
-        $this->db->trans_start();
-        $this->db->where('idcodigo_socio_binario', $idcodigo_socio_binario);
-        $this->db->delete('compras_binario');
-        $this->db->trans_complete();
-
-        if ($this->db->trans_status() === FALSE){
-            echo 'Hubo un error y no se pudo borrar las compras binarias';
-        }
-
-    }
-
-
-    /**
-     * Elimina las compras de la tabla compras_consumidores
-     *
-     * @param Type $idsocio
-     * @return type void
-     * @autor Pablo Orejuela
-     **/
-    public function _elimina_compras_consumidores($idsocio){
-        
-        $this->db->trans_start();
-        $this->db->where('idsocio', $idsocio);
-        $this->db->delete('compras_consumidores');
-        $this->db->trans_complete();
-
-        if ($this->db->trans_status() === FALSE){
-            echo 'Hubo un error y no se pudo borrar las compras de consumidor';
-        }
-
-    }
 
     /**
      * Elimina las cuentas de banco registradas
@@ -144,50 +61,6 @@ class Socios_model extends CI_Model {
 
     }
 
-    /**
-     * Elimina los puntos binarios
-     *
-     * @param Type $idcodigo_socio_binario
-     * @return type void
-     * @autor Pablo Orejuela
-     **/
-    public function _elimina_puntos_binarios($idcodigo_socio_binario){
-        
-        $this->db->trans_start();
-        $this->db->where('idcod_socio', $idcodigo_socio_binario);
-        $this->db->delete('p_binaria');
-        $this->db->trans_complete();
-
-        if ($this->db->trans_status() === FALSE){
-            echo 'Hubo un error y no se pudo borrar los puntos binarios';
-        }
-
-    }
-
-    /**
-     * Restauro el registro del codigo binario para eliminar el socio
-     *
-     * @param Type $idcodigo_socio_binario
-     * @return type void
-     * @autor Pablo Orejuela
-     **/
-    public function _restauro_codigo_binario($idcodigo_socio_binario){
-        
-        $this->db->trans_start();
-        $this->db->where('idcodigo_socio_binario', $idcodigo_socio_binario);
-        $this->db->set('codigo_socio_binario', 'UNDEFINED');
-        $this->db->set('patrocinador', 0);
-        $this->db->set('fecha_inscripcion', '2018-06-06');
-        $this->db->set('idsocio', 8);
-        $this->db->set('idrango', 1);
-        $this->db->update('codigo_socio_binario');
-        $this->db->trans_complete();
-
-        if ($this->db->trans_status() === FALSE){
-            echo 'Hubo un error y no se pudo actualizar la tabla';
-        }
-
-    }
 
     /**
      * Elimina el socio
@@ -209,6 +82,139 @@ class Socios_model extends CI_Model {
         }
 
     }
+
+
+	function _get_socios($estado = "A"){
+		$this->db->select('*');
+		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
+		$this->db->order_by('apellidos', 'ASC');
+        $q = $this->db->get('socios');
+        if($q->result() > 0){
+            foreach ($q->result() as $row) {
+                $r[] = $row;
+            }
+            return $r;
+        }
+        else{
+        	return 0;
+        }
+	}
+
+	function _get_socio_by_id($id){
+		$this->db->select('*');
+		$this->db->where('idsocio', $id);
+		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
+		$this->db->join('provincias', 'provincias.idprovincia = ciudad.id_provincia');
+		$q = $this->db->get('socios');
+		//echo $this->db->last_query().'<br>';
+		if ($q->num_rows() > 0) {
+            foreach ($q->result() as $r) {
+                $socio = $r;
+            }
+            return $socio;
+        }else{
+        	return 0;
+        }
+	}
+
+
+	function _get_socios_by_idciudad($idciudad){
+		$r=null;
+		$this->db->select('*');
+		$this->db->where('ciudad.idciudad', $idciudad);
+		$this->db->join('socios', 'socios.idsocio = codigo_socio.idsocio');
+		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
+		$this->db->join('rangos', 'rangos.idrango = codigo_socio.idrango');
+		$this->db->order_by('apellidos', 'ASC');
+        $q = $this->db->get('codigo_socio');
+        //echo $this->db->last_query();
+        if($q->result() > 0){
+            foreach ($q->result() as $row) {
+                $r[] = $row;
+            }
+            return $r;
+        }
+        else{
+        	return 0;
+        }
+	}
+
+	/**
+	 * Trae la información de los socios inactivos
+	 *
+	 * @return array
+	 * @author Pablo Orejuela
+	 **/
+	function _get_info_inactivos(){
+		$this->db->select('*');
+		//$this->db->select('codigo_socio_binario.idcodigo_socio_binario,codigo_socio_binario,fecha_inscripcion,nombres,apellidos,cedula');
+		$this->db->join('socios', 'socios.idsocio = codigo_socio_binario.idsocio');
+		$this->db->where('codigo_socio_binario !=', 'UNDEFINED');
+		$this->db->where('codigo_socio_binario.idsocio !=', '8');
+		//$this->db->where('idcodigo_socio_binario', 1);
+		$this->db->order_by('apellidos', 'asc');
+		//$this->db->order_by('idcodigo_socio_binario', 'asc');
+		$q = $this->db->get('codigo_socio_binario');
+		//echo $this->db->last_query();
+		if($q->num_rows() > 0){
+			foreach ($q->result() as $row) {
+				$r[] = $row;
+			}
+			return $r;
+		}
+		else{
+				return 0;
+		}
+	}
+
+	/**
+	 * undocumented function
+	 *
+	 * @return array
+	 * @author Pablo Orejuela
+	 **/
+	function _get_socios_provincia($idprovincia){
+		
+		$this->db->select('idcodigo_socio_binario,codigo_socio_binario,nombres,apellidos,cedula,celular,fecha_inscripcion');
+		$this->db->join('socios', 'socios.idsocio = codigo_socio_binario.idsocio');
+		$this->db->join('ciudad', 'ciudad.idciudad = socios.idciudad');
+		$this->db->join('provincias', 'provincias.idprovincia = ciudad.id_provincia');
+		$this->db->where('provincias.idprovincia', $idprovincia);
+		$this->db->where('codigo_socio_binario !=', 'UNDEFINED');
+		$this->db->order_by('apellidos', 'asc');
+		$q = $this->db->get('codigo_socio_binario');
+		if($q->num_rows() > 0){
+            foreach ($q->result() as $row) {
+                $r[] = $row;
+            }
+            return $r;
+        }
+        else{
+        	return 0;
+        }
+	}
+
+	function _get_socio_por_cedula($cedula){
+		$this->db->select('*');
+		$this->db->where('cedula', $cedula);
+		$q = $this->db->get('socios');
+		if ($q->num_rows() > 0) {
+            foreach ($q->result() as $r) {
+                $socio['id'] = $r->idsocio;
+                $socio['nombres'] = $r->nombres;
+                $socio['cedula'] = $r->cedula;
+                $socio['codigo_socio'] = $r->codigo_socio;
+                $socio['patrocinador'] = $r->patrocinador;
+                $socio['direccion'] = $r->direccion;
+                $socio['apellidos'] = $r->apellidos;
+                $socio['celular'] = $r->celular;
+            }
+            return $socio;
+        }else{
+        	return 0;
+        }
+
+	}
 }
 
 /* End of file ModelName.php */
